@@ -5,6 +5,8 @@ import io
 import pandas as pd
 import pymssql
 
+conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
+
 @app.route("/", methods=["GET"])
 def home():
     return render_template("home.html")
