@@ -35,7 +35,7 @@
                                 <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">La tua libreria</span></a>
                         </li>
                         <li>
-                            <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                            <a href="#Playlist" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
                                 <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Playlist</span></a>
                             <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                                 <li class="w-100">
@@ -90,21 +90,24 @@
             </div>
 
             <div class="col-auto col-md-4 col-xl-6">
-                <form action="/result" methods="GET">
+                <form action="/home/search" methods="GET">
                     <div class="form-group mt-3 mb-3 px-5">
-                        <input type="text" class="form-control" id="Ricerca"  placeholder="Ricerca" name="ricerca">
+                        <input type="text" class="form-control" id="Ricerca"  placeholder="Ricerca" name="Ricerca">
                     </div>
             
                     <button type="submit" class="btn btn-primary ms-5">Submit</button>
                 </form>
             </div>
-            <div class="col-auto col-md-3 mt-3">
-                <button type="button" class="btn btn-secondary ">Registrati</button>
-                <button type="button" class="btn btn-primary ml-2">Accedi</button>
-                <a routerLink="/homepage">dgdsg</a>
-                <router-outlet></router-outlet>
-            </div>
+            <div class="col-auto mt-3">
+                <a href="/register"><button type="button" class="btn btn-secondary ">Registrati</button></a>
 
+            </div>
+            <div class="col-auto mt-3">
+                <a href="/login"><button type="button" class="btn btn-primary ">Accedi</button></a>
+
+            </div>
+            <a routerLink="/homepage">homepage</a>
+            <router-outlet></router-outlet>
         </div>
     </div>
 
