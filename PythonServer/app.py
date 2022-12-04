@@ -9,12 +9,7 @@ from os import getenv
 from dotenv import load_dotenv
 load_dotenv()
 
-sql_server = getenv("SQL_SERVER")
-sql_user = getenv("SQL_USER")
-sql_password = getenv("SQL_PASSWORD")
-sql_name = getenv("SQL_NAME")
-
-conn = pymssql.connect(sql_server, sql_user, sql_password, sql_name)
+conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
 @app.route("/", methods=["GET"])
 def home():
