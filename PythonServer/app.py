@@ -1,24 +1,27 @@
-from flask import Flask, render_template, request,redirect,url_for,Response,url_for,redirect
-app = Flask(__name__)
-
+from flask import Flask, render_template, request,redirect,url_for,Response,url_for,redirect, jsonify
 import io
 import pandas as pd
 import pymssql
+from flask_cors import CORS
 
-from os import getenv
-from dotenv import load_dotenv
-load_dotenv()
+app = Flask(__name__)
+CORS(app)
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
-@app.route("/", methods=["GET"])
-def home():
-    return render_template("home.html")
+@app.route("/home", methods=["GET"])
+def canzoni():
+  data = request.args.get("search")
 
-@app.route("/home/search", methods=["GET"])
-def search():
-  data = request.args["Ricerca"]
-  return jasonfy()
+  q = 'SELECT * FROM spotify.tracks WHERE name LIKE %(data)s' 
+  cursor = conn.cursor(as_dict=True)
+  p = {"data": f"%{data}%"}
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+  print(data)
+
+  return jsonify(data)
 
 
 if __name__ == '__main__':

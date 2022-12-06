@@ -90,13 +90,20 @@
             </div>
 
             <div class="col-auto col-md-4 col-xl-6">
-                <form action="/home/search" methods="GET">
-                    <div class="form-group mt-3 mb-3 px-5">
-                        <input type="text" class="form-control" id="Ricerca"  placeholder="Ricerca" name="Ricerca">
-                    </div>
-            
-                    <button type="submit" class="btn btn-primary ms-5">Submit</button>
-                </form>
+                    <input #box (keydown)="onKey(box.value)" class="form-control mt-3" >
+                    <p *ngIf="loading">LOADING...</p>
+                    <table *ngIf="!loading && search.length >= 1" class="table table-striped">
+                        <thead>
+                          <th>nome</th>
+
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let s of search">
+                            <td>{{s.name}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+
             </div>
             <div class="col-auto mt-3">
                 <a href="/register"><button type="button" class="btn btn-secondary ">Registrati</button></a>
@@ -106,10 +113,10 @@
                 <a href="/login"><button type="button" class="btn btn-primary ">Accedi</button></a>
 
             </div>
-            <a routerLink="/homepage">homepage</a>
             <router-outlet></router-outlet>
         </div>
     </div>
+
 
     
 </body>

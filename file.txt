@@ -1,1 +1,1 @@
-pip install flask pandas pymssql
+pip install flask pandas pymssql flask_cors
