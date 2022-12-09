@@ -103,6 +103,22 @@
                           </tr>
                         </tbody>
                       </table>
+                      <div *ngIf="!loading && search.length >= 1">
+                        <div *ngFor="let s of search" class="card" style="width: 18rem;">
+                            <img src="..." class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title">{{s.name}}</h5>
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                          </div>
+                      </div>
+                      <audio controls>
+
+                        <source src="https://p.scdn.co/mp3-preview/3d305c8253df7cd3bc31968a81e4cf6a8c013c0a?cid=cd552680dec84110b29ddf95d645cbe8" type="audio/mpeg">
+                      Your browser does not support the audio element.
+                      </audio>
+                      
 
             </div>
             <div class="col-auto mt-3">
