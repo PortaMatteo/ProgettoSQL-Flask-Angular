@@ -9,19 +9,85 @@ CORS(app)
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
-@app.route("/home", methods=["GET"])
-def canzoni():
-  data = request.args.get("search")
+@app.route("/search", methods=["GET"])
+def search():
+  res = []
+  arg = request.args.get("search")
+  print(arg)
 
-  q = 'SELECT * FROM spotify.tracks WHERE name LIKE %(data)s' 
+  q = 'SELECT TOP 10 * FROM spotify.albums ' + ('WHERE name IN (SELECT name FROM spotify.albums WHERE name LIKE %(arg)s)' if arg != None and arg != '' else "") 
   cursor = conn.cursor(as_dict=True)
-  p = {"data": f"%{data}%"}
+  p = {"arg": f"{arg}%"}
+
   cursor.execute(q, p)
   data = cursor.fetchall()
+  if len(data) < 10:
+    p = {"arg": f"%{arg}%"}
 
+    cursor.execute(q, p)
+    if cursor.fetchall() not in data:
+      data += cursor.fetchall()
+    if len(data) > 10:
+      data = data[:10]
+  res.append(data)
+
+  q = 'SELECT TOP 10 * FROM spotify.artists ' + ('WHERE name IN (SELECT name FROM spotify.artists WHERE name LIKE %(arg)s)' if arg != None and arg != '' else "") 
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}%"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+  if len(data) < 10:
+    p = {"arg": f"%{arg}%"}
+
+    cursor.execute(q, p)
+    if cursor.fetchall() not in data:
+      data += cursor.fetchall()
+    if len(data) > 10:
+      data = data[:10]
+
+  res.append(data)
+
+  q = 'SELECT TOP 10 * FROM spotify.genres ' + ('WHERE id IN (SELECT id FROM spotify.genres WHERE id LIKE %(arg)s)' if arg != None and arg != '' else "") 
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}%"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+  if len(data) < 10:
+    p = {"arg": f"%{arg}%"}
+
+    cursor.execute(q, p)
+    if cursor.fetchall() not in data:
+      data += cursor.fetchall()
+    if len(data) > 10:
+      data = data[:10]
+  
+  res.append(data)
+
+  q = 'SELECT TOP 10 name FROM spotify.tracks ' + ('WHERE name IN (SELECT name FROM spotify.tracks WHERE name LIKE %(arg)s)' if arg != None and arg != '' else "") 
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}%"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
   print(data)
+  if len(data) < 10:
+    p = {"arg": f"%{arg}%"}
 
-  return jsonify(data)
+    cursor.execute(q, p)
+    if cursor.fetchall() not in data:
+      data += cursor.fetchall()
+      print(data)
+    if len(data) > 10:
+      data = data[:10]
+  
+  res.append(data)
+
+  return jsonify(res)
+
+
+  
 
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -8,9 +8,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  search!: any;
+  @Input() yo! : string
+  albums!: any;
+  artists!: any;
+  genres!: any;
+  tracks!: any;
   loading!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-t4uwqe5s3xt.ws-eu78.gitpod.io/home";
+  url: string = "https://3245-portamatteo-progettosql-9mqk5rn4jqh.ws-eu78.gitpod.io/search";
 
   constructor(public http: HttpClient) {
     this.get(this.url);
@@ -18,13 +22,17 @@ export class HomeComponent {
 
   get(url: string): void {
     this.loading = true;
-    this.http.get(url).subscribe(data => {
-      this.search = data;
+    this.http.get(url).subscribe(res => {
+      this.albums = res[0];
+      this.artists = res[1];
+      this.genres = res[2];
+      this.tracks = res[3];
       this.loading = false;
     });
   }
 
   onKey(value: string) {
+    this.yo = value
     this.get(this.url + "?search=" + value);
   }
 }
