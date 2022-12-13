@@ -15,6 +15,8 @@ def search():
   arg = request.args.get("search")
   print(arg)
 
+#'select albums.*,artists.[name] as artist from (select top 10 * from spotify.albums ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as albums inner join spotify.r_albums_artists as r on albums.id = r.album_id inner join spotify.artists on r.artist_id = artists.id'
+
   q = 'SELECT TOP 10 * FROM spotify.albums ' + ('WHERE name LIKE %(arg)s' if arg != None and arg != '' else "") 
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}%"}
@@ -30,6 +32,8 @@ def search():
     if len(data) > 10:
       data = data[:10]
   res.append(data)
+
+#'select artists.*,genre.[id] as genre from (select top 10 * from spotify.artists ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as artists inner join spotify.r_artist_genre as r on artists.id = r.artist_id'
 
   q = 'SELECT TOP 10 * FROM spotify.artists ' + ('WHERE name LIKE %(arg)s' if arg != None and arg != '' else "") 
   cursor = conn.cursor(as_dict=True)
@@ -64,6 +68,9 @@ def search():
       data = data[:10]
   
   res.append(data)
+
+
+#'select tracks.*,albums.[name] as album from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks inner join spotify.r_albums_tracks as r on tracks.id = r.track_id inner join spotify.albums on r.album_id = albums.id'
 
   q = 'SELECT TOP 10 name FROM spotify.tracks ' + ('WHERE name LIKE %(arg)s' if arg != None and arg != '' else "") 
   cursor = conn.cursor(as_dict=True)
