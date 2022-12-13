@@ -14,7 +14,7 @@ export class HomeComponent {
   genres!: any;
   tracks!: any;
   loading!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-8qn3yz9c9rk.ws-eu78.gitpod.io/search";
+  url: string = "https://3245-portamatteo-progettosql-ep8zc3nv5w0.ws-eu78.gitpod.io/search";
 
   constructor(public http: HttpClient) {
     this.get(this.url);
@@ -31,7 +31,7 @@ export class HomeComponent {
     });
   }
 
-  onKey(value: string) {
+  onKey = (value: string) => {
     this.yo = value
     this.get(this.url + "?search=" + value);
   }

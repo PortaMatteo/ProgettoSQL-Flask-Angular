@@ -15,7 +15,7 @@ def search():
   arg = request.args.get("search")
   print(arg)
 
-  q = 'SELECT TOP 10 * FROM spotify.albums ' + ('WHERE name IN (SELECT name FROM spotify.albums WHERE name LIKE %(arg)s)' if arg != None and arg != '' else "") 
+  q = 'SELECT TOP 10 * FROM spotify.albums ' + ('WHERE name LIKE %(arg)s' if arg != None and arg != '' else "") 
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}%"}
 
@@ -31,7 +31,7 @@ def search():
       data = data[:10]
   res.append(data)
 
-  q = 'SELECT TOP 10 * FROM spotify.artists ' + ('WHERE name IN (SELECT name FROM spotify.artists WHERE name LIKE %(arg)s)' if arg != None and arg != '' else "") 
+  q = 'SELECT TOP 10 * FROM spotify.artists ' + ('WHERE name LIKE %(arg)s' if arg != None and arg != '' else "") 
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}%"}
 
@@ -48,7 +48,7 @@ def search():
 
   res.append(data)
 
-  q = 'SELECT TOP 10 * FROM spotify.genres ' + ('WHERE id IN (SELECT id FROM spotify.genres WHERE id LIKE %(arg)s)' if arg != None and arg != '' else "") 
+  q = 'SELECT TOP 10 * FROM spotify.genres ' + ('WHERE id LIKE %(arg)s' if arg != None and arg != '' else "") 
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}%"}
 
@@ -65,7 +65,7 @@ def search():
   
   res.append(data)
 
-  q = 'SELECT TOP 10 name FROM spotify.tracks ' + ('WHERE name IN (SELECT name FROM spotify.tracks WHERE name LIKE %(arg)s)' if arg != None and arg != '' else "") 
+  q = 'SELECT TOP 10 name FROM spotify.tracks ' + ('WHERE name LIKE %(arg)s' if arg != None and arg != '' else "") 
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}%"}
 
@@ -85,6 +85,15 @@ def search():
   res.append(data)
 
   return jsonify(res)
+
+@app.route("/register/data", methods=["POST"])
+def dati_registrazione():
+  username = request.form["username"]
+  email = request.form["email"]
+  password = request.form["password"]
+  Cpassword = request.form["Cpassword"]
+  print(username)
+  return  username
 
 
   
