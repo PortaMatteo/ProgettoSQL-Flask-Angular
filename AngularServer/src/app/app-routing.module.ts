@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: '', component: HomepageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent },
-  {path: "album", component: AlbumComponent },
+  {path: "album/:id", component: AlbumComponent },
   {path: "artist", component: ArtistComponent },
   {path: "genre", component: GenreComponent },
   {path: "track", component: TrackComponent }

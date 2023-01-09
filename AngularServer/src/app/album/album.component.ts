@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-album',
@@ -6,5 +7,15 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./album.component.css']
 })
 export class AlbumComponent {
-  @Input() album_id! : string
+  id: any;
+  constructor(private activatedRoute: ActivatedRoute) {
+  }
+  
+  ngOnInit() {
+      this.activatedRoute.params.subscribe(paramsId => {
+          this.id = paramsId['id'];
+          console.log(this.id);
+      });
+    
+   }
 }
