@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-genre',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./genre.component.css']
 })
 export class GenreComponent {
-
+  public id: any;
+  constructor(private activatedRoute: ActivatedRoute) {
+  }
+  
+  ngOnInit() {
+      this.activatedRoute.params.subscribe(paramsId => {
+          this.id = paramsId['id'];
+          console.log(this.id);
+      });
+      
+   }
 }

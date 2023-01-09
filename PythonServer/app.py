@@ -17,7 +17,7 @@ def search():
 
 #'select albums.*,artists.[name] as artist from (select top 10 * from spotify.albums ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as albums inner join spotify.r_albums_artists as r on albums.id = r.album_id inner join spotify.artists on r.artist_id = artists.id'
 
-  q = 'select albums.*,artists.[name] as artist from (select top 10 * from spotify.albums ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as albums left join spotify.r_albums_artists as r on albums.id = r.album_id left join spotify.artists on r.artist_id = artists.id'
+  q = 'select albums.*,artists.[id] as artist_id,artists.[name] as artist from (select top 10 * from spotify.albums ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as albums left join spotify.r_albums_artists as r on albums.id = r.album_id left join spotify.artists on r.artist_id = artists.id'
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}%"}
 
@@ -68,13 +68,13 @@ def search():
       data += cursor.fetchall()
     if len(data) > 10:
       data = data[:10]
-  
+  print(data)
   res.append(data)
 
 
 #'select tracks.*,albums.[name] as album from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks inner join spotify.r_albums_tracks as r on tracks.id = r.track_id inner join spotify.albums on r.album_id = albums.id'
 
-  q = 'select tracks.*,albums.[name] as album from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks left join spotify.r_albums_tracks as r on tracks.id = r.track_id left join spotify.albums on r.album_id = albums.id'
+  q = 'select tracks.*,albums.[id] as album_id,albums.[name] as album from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks left join spotify.r_albums_tracks as r on tracks.id = r.track_id left join spotify.albums on r.album_id = albums.id'
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}%"}
 

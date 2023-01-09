@@ -34,8 +34,8 @@
             <tbody>
               <tr *ngFor="let s of albums">
                 <td>
-                    <a href="/album/{{s.name}}">{{s.name}} </a> <br> 
-                    {{s.artist}}
+                    <a href="/album/{{s.id}}">{{s.name}} </a> <br> 
+                    <a href="/artist/{{s.artist_id}}">{{s.artist}}</a>
                 </td>
               </tr>
             </tbody>
@@ -49,8 +49,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let s of artists">
-                <td>{{s.name}} <br> 
-                    {{s.genre}}
+                <td><a href="/artist/{{s.id}}">{{s.name}}</a> <br> 
+                <a href="/genre/s.genre">{{s.genre}}</a>
                 </td>
               </tr>
             </tbody>
@@ -64,8 +64,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let s of tracks">
-                <td>{{s.name}} <br>
-                     {{s.album}}
+                <td><a href="/track/{{s.id}}">{{s.name}} </a><br>
+                     <a href="/album/{{s.album_id}}">{{s.album}}</a>
                 </td>
               </tr>
             </tbody>
@@ -79,14 +79,17 @@
             </thead>
             <tbody>
                 <div class="row">
-                    <div class="col-md-2" *ngFor="let s of genres">
-                        <div class="card" style="width: 18rem;" >
+                    <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3" *ngFor="let s of genres" onmouseover="">
+                        <a href="/genre/{{s.id}}">
+                          <div class="card" style="width: 16rem;" >
                             <div class="card-body">
                               <h5 class="card-title">{{s.id}}</h5>
                               <h6 class="card-subtitle mb-2 text-muted">{{s.id}}</h6>
-                            </div>
+                            </div>                
                           </div>
+                        </a>
                     </div>
+     
                 </div>
                 
             

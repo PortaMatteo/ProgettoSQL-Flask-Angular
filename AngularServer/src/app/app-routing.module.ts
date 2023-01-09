@@ -17,9 +17,9 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent },
   {path: "album/:id", component: AlbumComponent },
-  {path: "artist", component: ArtistComponent },
-  {path: "genre", component: GenreComponent },
-  {path: "track", component: TrackComponent }
+  {path: "artist/:id", component: ArtistComponent },
+  {path: "genre/:id", component: GenreComponent },
+  {path: "track/:id", component: TrackComponent }
 ];
 
 @NgModule({

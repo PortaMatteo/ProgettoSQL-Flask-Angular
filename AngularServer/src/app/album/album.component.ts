@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./album.component.css']
 })
 export class AlbumComponent {
-  id: any;
+  public id: any;
   constructor(private activatedRoute: ActivatedRoute) {
   }
   
@@ -16,6 +16,6 @@ export class AlbumComponent {
           this.id = paramsId['id'];
           console.log(this.id);
       });
-    
+      
    }
 }
