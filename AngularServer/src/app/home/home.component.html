@@ -28,14 +28,14 @@
     <div>
         <table *ngIf="!loading && albums.length >= 1" class="table ">
             <thead>
-              <th>albums</th>
+              <th>Album</th>
 
             </thead>
             <tbody>
               <tr *ngFor="let s of albums">
                 <td>
-                    <a href="/album/{{s.id}}">{{s.name}} </a> <br> 
-                    <a href="/artist/{{s.artist_id}}">{{s.artist}}</a>
+                    <a href="/album/{{s.id}}"><b>{{s.name}} </b></a> <br> 
+                    <a href="/artist/{{s.artist_id}}" style="font-size: small;">{{s.artist}}</a>
                 </td>
               </tr>
             </tbody>
@@ -44,12 +44,12 @@
     <div>
         <table *ngIf="!loading && artists.length >= 1" class="table">
             <thead>
-              <th>artisti</th>
+              <th>Artisti</th>
 
             </thead>
             <tbody>
               <tr *ngFor="let s of artists">
-                <td><a href="/artist/{{s.id}}">{{s.name}}</a> <br> 
+                <td><a href="/artist/{{s.id}}"> <b>{{s.name}}</b></a> <br> 
                 <a href="/genre/s.genre">{{s.genre}}</a>
                 </td>
               </tr>
@@ -59,13 +59,13 @@
     <div>
         <table *ngIf="!loading && tracks.length >= 1" class="table">
             <thead>
-              <th>tracce</th>
+              <th>Tracce</th>
 
             </thead>
             <tbody>
               <tr *ngFor="let s of tracks">
-                <td><a href="/track/{{s.id}}">{{s.name}} </a><br>
-                     <a href="/album/{{s.album_id}}">{{s.album}}</a>
+                <td><a href="/track/{{s.id}}"><b>{{s.name}}</b></a><br>
+                     <a href="/album/{{s.album_id}}" style="font-size:small;">{{s.album}}</a>
                 </td>
               </tr>
             </tbody>
@@ -74,7 +74,7 @@
     <div>
         <table *ngIf="!loading && genres.length >= 1" class="table">
             <thead>
-              <th>generi</th>
+              <th>Generi</th>
 
             </thead>
             <tbody>

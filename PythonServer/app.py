@@ -95,6 +95,21 @@ def search():
 
   return jsonify(res)
 
+
+@app.route("/search/album", methods=["GET"])
+def infoalbum():
+  res = []
+  arg = request.args.get("search")
+  q = 'select albums.*,artists.[name] as artist from (select * from spotify.albums ' + ('where [id] like %(arg)s) ') + 'as a left join spotify.r_albums_artists as r on a.id = r.album_id left join spotify.artists on r.artist_id = artists.id '
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}%"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+  0
+  return res
+
 @app.route("/register/data", methods=["POST"])
 def dati_registrazione():
   username = request.form["username"]
@@ -105,7 +120,8 @@ def dati_registrazione():
   return  username
 
 
-  
+# FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA
+# TOGLIERE IL GENERE NELLA QUERY DELL'ARTISTA
 
 
 if __name__ == '__main__':
