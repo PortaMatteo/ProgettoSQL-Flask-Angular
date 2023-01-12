@@ -14,7 +14,7 @@ export class HomeComponent {
   genres!: any;
   tracks!: any;
   loading!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-y7h8bct4aqu.ws-eu81.gitpod.io/search";
+  url: string = "https://3245-portamatteo-progettosql-u9fr767ou3w.ws-eu81.gitpod.io/search";
 
   constructor(public http: HttpClient) {
     this.get(this.url);

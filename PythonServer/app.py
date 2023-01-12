@@ -4,6 +4,7 @@ import pandas as pd
 import pymssql
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 CORS(app)
 
@@ -31,8 +32,7 @@ def search():
       data += cursor.fetchall()
     if len(data) > 10:
       data = data[:10]
-  print(data)
-  print(len(data))
+
   res.append(data)
 
 #'select artists.*,genre.[id] as genre from (select top 10 * from spotify.artists ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as artists inner join spotify.r_artist_genre as r on artists.id = r.artist_id'
@@ -68,7 +68,7 @@ def search():
       data += cursor.fetchall()
     if len(data) > 10:
       data = data[:10]
-  print(data)
+
   res.append(data)
 
 
@@ -107,8 +107,22 @@ def infoalbum():
   cursor.execute(q, p)
   data = cursor.fetchall()
 
-  0
-  return res
+  res.append(data)
+
+  print(data)
+
+  q = 'select tracks.* from (select * from spotify.tracks ' + ('where [id] in (select track_id from spotify.r_albums_tracks as at inner join (select albums.id from spotify.albums %(arg)s) as a on a.id = at.album_id)) ')
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}%"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+  res.append(data)
+
+  print(data)
+
+  return jsonify(res)
 
 @app.route("/register/data", methods=["POST"])
 def dati_registrazione():
@@ -116,7 +130,6 @@ def dati_registrazione():
   email = request.form["email"]
   password = request.form["password"]
   Cpassword = request.form["Cpassword"]
-  print(username)
   return  username
 
 

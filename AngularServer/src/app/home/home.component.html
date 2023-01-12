@@ -66,6 +66,7 @@
               <tr *ngFor="let s of tracks">
                 <td><a href="/track/{{s.id}}"><b>{{s.name}}</b></a><br>
                      <a href="/album/{{s.album_id}}" style="font-size:small;">{{s.album}}</a>
+                     <audio id="audio" src="{{s.preview_url}}" controls></audio>
                 </td>
               </tr>
             </tbody>
