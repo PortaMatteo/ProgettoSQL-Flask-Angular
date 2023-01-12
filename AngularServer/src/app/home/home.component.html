@@ -11,10 +11,11 @@
 <body>
     <div class="row">
         <div class="col-md-6">
-            <input #box (keyup)="onKey(box.value)" class="form-control mt-3" >
+            <input id="box" #box (keyup)="onKeySearch($event)" class="form-control mt-3" >
             <p>{{yo}}</p>
             <p *ngIf="loading">LOADING...</p>
         </div>
+     
         <div class="col-md-3 mt-3">
             <div class="">
                 <a href="/register"><button type="button" class="btn btn-secondary ">Registrati</button></a>

@@ -14,7 +14,8 @@ export class HomeComponent {
   genres!: any;
   tracks!: any;
   loading!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-u9fr767ou3w.ws-eu81.gitpod.io/search";
+  url: string = "https://3245-portamatteo-progettosql-ij8r1r88zj8.ws-eu82.gitpod.io/search";
+  timeout: any;
 
   constructor(public http: HttpClient) {
     this.get(this.url);
@@ -33,6 +34,21 @@ export class HomeComponent {
 
   onKey = (value: string) => {
     this.yo = value
-    this.get(this.url + "?search=" + value);
+    
+  }
+
+  onKeySearch(event: any) {
+    clearTimeout(this.timeout);
+    var $this = this;
+    this.timeout = setTimeout(function () {
+      if (event.keyCode != 13) {
+        $this.executeListing(event.target.value);
+      }
+    }, 550);
+  }
+
+  private executeListing(value: string) {
+    console.log(value)
+    this.get(this.url + "?search=" + value)
   }
 }
