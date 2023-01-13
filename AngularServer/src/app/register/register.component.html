@@ -23,43 +23,60 @@
                         aria-controls="pills-register" aria-selected="false">Registrati</a>
                     </li>
                 </ul>
-                <form action="{{url}}" method="post">
+                <form action="https://3245-portamatteo-progettosql-34etmljyzlk.ws-eu82.gitpod.io/register/data" method="post">
             
                     <!-- Username input -->
                     <div class="form-outline mb-4">
                         <div class="form-outline mb-4">
-                            <input type="text" class="form-control" id="username"  placeholder="Inserisci l'username" name="username">
+                            <input type="text" class="form-control" id="username"  placeholder="Inserisci l'username" name="username" required>
                         </div>
                     </div>
             
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <div class="form-outline mb-4">
-                            <input type="email" class="form-control" id="email"  placeholder="Inserisci l'email" name="email">
+                            <input type="email" class="form-control" id="email"  placeholder="Inserisci l'email" name="email" required>
                         </div>
                     </div>
             
                     <!-- Password input -->
                     <div class="form-outline mb-4">
                         <div class="form-outline mb-4">
-                            <input type="text" class="form-control" id="passwrod"  placeholder="Inserisci la password" name="passwrod">
+                            <input type="text" class="form-control" id="password"  placeholder="Inserisci la password" name="password" required>
                         </div>
                     </div>
-            
-                    <!-- Repeat Password input -->
-                    <div class="form-outline mb-4">
-                        <div class="form-outline mb-4">
-                            <input type="text" class="form-control" id="Cpasswrod"  placeholder="Ripeti la password" name="Cpasswrod">
-                        </div>
-                    </div>
-            
+                     
                     <!-- Checkbox -->
                     
             
                     <!-- Submit button -->
+                    
                     <button type="submit" id="registratibtn" class="btn btn-primary btn-block mb-3">Registrati</button>
 
                 </form>
+                <script type="text/javascript">
+
+                    const p1 = document.getElementById("password");
+                    const p2 = document.getElementById("Cpassword");
+                    const submit = document.getElementById("registratibtn")
+                    submit.disabled = true;
+                
+                    p1.onkeydown = () => {
+                        submit.disabled = p1.value != p2.value;
+                    };
+                
+                    p2.onkeydown = () => {
+                        submit.disabled = p1.value != p2.value;
+                    };
+                
+                    p1.onkeyup = () => {
+                        submit.disabled = p1.value != p2.value;
+                    };
+                
+                    p2.onkeyup = () => {
+                        submit.disabled = p1.value != p2.value;
+                    };
+                </script>
             </div>
         </div>
     </div>

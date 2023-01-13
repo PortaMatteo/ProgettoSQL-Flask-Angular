@@ -8,6 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+angular_url = 'https://4200-portamatteo-progettosql-34etmljyzlk.ws-eu82.gitpod.io/home'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -101,27 +102,26 @@ def search():
 def infoalbum():
   res = []
   arg = request.args.get("search")
-  q = 'select albums.*,artists.[name] as artist from (select * from spotify.albums ' + ('where [id] like %(arg)s) ') + 'as a left join spotify.r_albums_artists as r on a.id = r.album_id left join spotify.artists on r.artist_id = artists.id '
+  q = 'select a.*,artists.[name] as artist from (select * from spotify.albums ' + ('where [id] like %(arg)s) ') + 'as a left join spotify.r_albums_artists as r on a.id = r.album_id left join spotify.artists on r.artist_id = artists.id '
   cursor = conn.cursor(as_dict=True)
-  p = {"arg": f"{arg}%"}
+  p = {"arg": f"{arg}"}
 
   cursor.execute(q, p)
   data = cursor.fetchall()
 
   res.append(data)
 
-  print(data)
 
-  q = 'select tracks.* from (select * from spotify.tracks ' + ('where [id] in (select track_id from spotify.r_albums_tracks as at inner join (select albums.id from spotify.albums %(arg)s) as a on a.id = at.album_id)) ')
+  q = 'select t.* from (select * from spotify.tracks where [id] in (select track_id from spotify.r_albums_tracks as at ' + ('where at.album_id like %(arg)s') + '))as t'
   cursor = conn.cursor(as_dict=True)
-  p = {"arg": f"{arg}%"}
+  p = {"arg": f"{arg}"}
 
   cursor.execute(q, p)
   data = cursor.fetchall()
 
   res.append(data)
 
-  print(data)
+  print(res)
 
   return jsonify(res)
 
@@ -130,9 +130,26 @@ def dati_registrazione():
   username = request.form["username"]
   email = request.form["email"]
   password = request.form["password"]
-  Cpassword = request.form["Cpassword"]
-  return  username
+  q = 'insert into spotify.users (username, email, password) values (%(username)s,%(email)s,%(password)s)'
+  cursor = conn.cursor(as_dict=True)
+  p = {"username": f"{username}","email": f"{email}","password": f"{password}"}
 
+  cursor.execute(q, p)
+  conn.commit()
+
+  return redirect(angular_url)
+
+@app.route("/login/data", methods=["POST"])
+def dati_login():
+  email = request.form["email"]
+  password = request.form["password"]
+  q = "select * from spotify.users where email = %(email)s and password = %(password)s "
+  cursor = conn.cursor(as_dict=True)
+  p = {"email": f"{email}","password": f"{password}"}
+
+  cursor.execute(q, p)
+  conn.commit()
+  return  redirect(angular_url)
 
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA
 # TOGLIERE IL GENERE NELLA QUERY DELL'ARTISTA

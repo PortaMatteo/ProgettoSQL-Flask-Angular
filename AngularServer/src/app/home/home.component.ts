@@ -14,7 +14,7 @@ export class HomeComponent {
   genres!: any;
   tracks!: any;
   loading!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-ij8r1r88zj8.ws-eu82.gitpod.io/search";
+  url: string = "https://3245-portamatteo-progettosql-34etmljyzlk.ws-eu82.gitpod.io/search";
   timeout: any;
 
   constructor(public http: HttpClient) {
@@ -44,7 +44,7 @@ export class HomeComponent {
       if (event.keyCode != 13) {
         $this.executeListing(event.target.value);
       }
-    }, 550);
+    }, 700);
   }
 
   private executeListing(value: string) {

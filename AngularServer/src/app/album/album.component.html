@@ -1,1 +1,20 @@
-<p>album</p>
+<p>album: {{album_n}}</p>
+<p>artista: {{album_a}}</p>
+
+<table *ngIf="tracks.length >= 1" class="table">
+    <thead>
+      <th>Tracce</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of tracks">
+        <td>
+            <a href="/track/{{s.id}}"><b>{{s.name}}</b></a><br>
+        </td>
+        <td class="col-md-2">
+          <audio id="audio" src="{{s.preview_url}}" controls></audio>
+        </td>
+      </tr>
+    </tbody>
+</table>
+
+
