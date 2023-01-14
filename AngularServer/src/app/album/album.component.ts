@@ -8,9 +8,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./album.component.css']
 })
 export class AlbumComponent {
-  url: string = "https://3245-portamatteo-progettosql-34etmljyzlk.ws-eu82.gitpod.io/search/album";
+  url: string = "https://3245-portamatteo-progettosql-kqi5fururfi.ws-eu82.gitpod.io/search/album";
   public id: any;
-  data! : any;
   album_n!:any;
   album_a!:any;
   tracks!:any;

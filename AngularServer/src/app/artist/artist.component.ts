@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,8 +8,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./artist.component.css']
 })
 export class ArtistComponent {
+  url: string = "https://3245-portamatteo-progettosql-kqi5fururfi.ws-eu82.gitpod.io/search/artist";
   public id: any;
-  constructor(private activatedRoute: ActivatedRoute) {
+  artist_n!:any;
+  artist_g!:any;
+  artist_a!:any;
+  tracks!:any;
+  constructor(private activatedRoute: ActivatedRoute,public http: HttpClient) {
   }
   
   ngOnInit() {
@@ -16,6 +22,15 @@ export class ArtistComponent {
           this.id = paramsId['id'];
           console.log(this.id);
       });
+      this.get(this.url + "?search=" + this.id);
       
    }
+   get(url: string): void {
+    this.http.get(url).subscribe(res => {
+      this.artist_n = res[0][0].name,
+      this.artist_g = res[0][0].genre_id,
+      this.artist_a = res[1],
+      this.tracks = res[2]
+    });
+  }
 }

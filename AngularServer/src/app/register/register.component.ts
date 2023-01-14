@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  @Input() url : string = "https://3245-portamatteo-progettosql-zkjdhp4lrjb.ws-eu79.gitpod.io/register/data";
+  @Input() url : string = "https://3245-portamatteo-progettosql-kqi5fururfi.ws-eu82.gitpod.io/register/data";
 }

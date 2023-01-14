@@ -125,6 +125,78 @@ def infoalbum():
 
   return jsonify(res)
 
+@app.route("/search/artist", methods=["GET"])
+def infoartist():
+  res = []
+  arg = request.args.get("search")
+  q = 'select * from (select * from spotify.artists ' + ('where [id] like %(arg)s) ') + 'as a inner join (select * from spotify.r_artist_genre ' + ('where [artist_id] like %(arg)s) ') + 'as g on a.id = g.artist_id'
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+
+  res.append(data)
+
+  q = 'select t.* from (select * from spotify.albums where [id] in (select album_id from spotify.r_albums_artists as aa ' + ('where aa.artist_id like %(arg)s') + '))as t'
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+  res.append(data)
+
+  q = 'select t.* from (select * from spotify.tracks where [id] in (select track_id from spotify.r_track_artist as ta ' + ('where ta.artist_id like %(arg)s') + '))as t'
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+  res.append(data)
+
+  print(res)
+
+  return jsonify(res)
+
+@app.route("/search/track", methods=["GET"])
+def infotrack():
+  res = []
+  arg = request.args.get("search")
+  q = 'select * from spotify.tracks ' + ('where [id] like %(arg)s ')
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+
+  res.append(data)
+  
+  q = 'select artists.name,ag.genre_id from spotify.artists where [id] in (select artist_id from spotify.r_track_artist where track_id LIKE ' + ('%(arg)s') + ') inner join r_artist_genre as ag on artists.id = ag.artist_id '
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+  res.append(data)
+
+  q = 'select t.* from (select * from spotify.tracks where [id] in (select track_id from spotify.r_albums_tracks as at ' + ('where at.album_id in (select album_id from spotify.r_albums_tracks where track_id LIKE %(arg)s)') + '))as t'
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+  res.append(data)
+
+  print(res)
+
+  return jsonify(res)
+
 @app.route("/register/data", methods=["POST"])
 def dati_registrazione():
   username = request.form["username"]

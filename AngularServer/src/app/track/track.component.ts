@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,8 +8,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./track.component.css']
 })
 export class TrackComponent {
+  url: string = "https://3245-portamatteo-progettosql-kqi5fururfi.ws-eu82.gitpod.io/search/track";
   public id: any;
-  constructor(private activatedRoute: ActivatedRoute) {
+  track_n!:any;
+  track_g!:any;
+  track_a!:any;
+  tracks!:any;
+  constructor(private activatedRoute: ActivatedRoute,public http: HttpClient) {
   }
   
   ngOnInit() {
@@ -16,6 +22,15 @@ export class TrackComponent {
           this.id = paramsId['id'];
           console.log(this.id);
       });
+      this.get(this.url + "?search=" + this.id);
       
    }
+   get(url: string): void {
+    this.http.get(url).subscribe(res => {
+      this.track_n = res[0][0].name,
+      this.track_g = res[0][0].genre,
+      this.track_a = res[1],
+      this.tracks = res[2]
+    });
+  }
 }
