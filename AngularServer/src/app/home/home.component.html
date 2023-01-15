@@ -15,6 +15,16 @@
             <p>{{yo}}</p>
             <p *ngIf="loading">LOADING...</p>
         </div>
+        <div class="col-md-2 mt-3">
+          <select class='select-option'
+              #mySelect
+              (change)='onOptionsSelected(mySelect.value)'>
+            <option class='option' 
+              *ngFor='let option of dropdown' 
+              [value]="option.val">{{option.text_val}}
+            </option>
+          </select>
+        </div>    
      
         <div class="col-md-3 mt-3">
             <div class="">
@@ -27,7 +37,7 @@
     </div>
     
     <div>
-        <table *ngIf="!loading && albums.length >= 1" class="table ">
+        <table *ngIf="!loading && albums.length >= 1 && selected == 'all' || selected == 'albums'" class="table ">
             <thead>
               <th>Album</th>
 
@@ -43,7 +53,7 @@
         </table>
     </div>
     <div>
-        <table *ngIf="!loading && artists.length >= 1" class="table">
+        <table *ngIf="!loading && albums.length >= 1 && selected == 'all' || selected == 'artists'" class="table">
             <thead>
               <th>Artisti</th>
 
@@ -58,7 +68,7 @@
         </table>
     </div>
     <div>
-        <table *ngIf="!loading && tracks.length >= 1" class="table">
+        <table *ngIf="!loading && albums.length >= 1 && selected == 'all' || selected == 'tracks'" class="table">
             <thead>
               <th>Tracce</th>
 
@@ -78,7 +88,7 @@
         </table>
     </div>
     <div>
-        <table *ngIf="!loading && genres.length >= 1" class="table">
+        <table *ngIf="!loading && albums.length >= 1 && selected == 'all' || selected == 'genres'" class="table">
             <thead>
               <th>Generi</th>
 

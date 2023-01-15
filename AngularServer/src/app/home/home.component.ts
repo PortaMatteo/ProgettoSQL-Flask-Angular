@@ -16,7 +16,8 @@ export class HomeComponent {
   loading!: Boolean;
   url: string = "https://3245-portamatteo-progettosql-kqi5fururfi.ws-eu82.gitpod.io/search";
   timeout: any;
-
+  dropdown : any = [{'val':'all','text_val':'Generale'},{'val':'artists','text_val':'Artisti'},{'val':'albums','text_val':'Album'},{'val':'genres','text_val':'Generi'},{'val':'tracks','text_val':'Tracce'}]
+  selected: string = 'all'
   constructor(public http: HttpClient) {
     this.get(this.url);
   }
@@ -50,5 +51,8 @@ export class HomeComponent {
   private executeListing(value: string) {
     console.log(value)
     this.get(this.url + "?search=" + value)
+  }
+  onOptionsSelected(value:string){
+    this.selected = value;
   }
 }

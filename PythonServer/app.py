@@ -175,7 +175,7 @@ def infotrack():
 
   res.append(data)
   
-  q = 'select artists.name,ag.genre_id from spotify.artists where [id] in (select artist_id from spotify.r_track_artist where track_id LIKE ' + ('%(arg)s') + ') inner join r_artist_genre as ag on artists.id = ag.artist_id '
+  q = 'select a.name,ag.genre_id as genre from (select * from spotify.artists where [id] in (select artist_id from spotify.r_track_artist where track_id LIKE ' + ('%(arg)s') + ')) as a inner join spotify.r_artist_genre as ag on a.id = ag.artist_id '
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}"}
 
@@ -184,7 +184,7 @@ def infotrack():
 
   res.append(data)
 
-  q = 'select t.* from (select * from spotify.tracks where [id] in (select track_id from spotify.r_albums_tracks as at ' + ('where at.album_id in (select album_id from spotify.r_albums_tracks where track_id LIKE %(arg)s)') + '))as t'
+  q = 'select t.* from (select * from spotify.tracks where [id] in (select track_id from spotify.r_albums_tracks as at ' + ('where at.album_id in (select album_id from spotify.r_albums_tracks where track_id LIKE %(arg)s)') + '))as t ' + ('where [id] not like %(arg)s ')
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}"}
 

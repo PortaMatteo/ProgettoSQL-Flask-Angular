@@ -28,8 +28,8 @@ export class TrackComponent {
    get(url: string): void {
     this.http.get(url).subscribe(res => {
       this.track_n = res[0][0].name,
-      this.track_g = res[0][0].genre,
-      this.track_a = res[1],
+      this.track_g = res[1].genre,
+      this.track_a = res[1].name,
       this.tracks = res[2]
     });
   }
