@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./artist.component.css']
 })
 export class ArtistComponent {
-  url: string = "https://3245-portamatteo-progettosql-kqi5fururfi.ws-eu82.gitpod.io/search/artist";
+  url: string = "https://3245-portamatteo-progettosql-rxatmtl0t9p.ws-eu82.gitpod.io/search/artist";
   public id: any;
   artist_n!:any;
   artist_g!:any;

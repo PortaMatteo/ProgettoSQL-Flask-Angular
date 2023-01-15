@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-34etmljyzlk.ws-eu82.gitpod.io/home'
+angular_url = 'https://4200-portamatteo-progettosql-rxatmtl0t9p.ws-eu82.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -202,14 +202,22 @@ def dati_registrazione():
   username = request.form["username"]
   email = request.form["email"]
   password = request.form["password"]
-  q = 'insert into spotify.users (username, email, password) values (%(username)s,%(email)s,%(password)s)'
-  cursor = conn.cursor(as_dict=True)
-  p = {"username": f"{username}","email": f"{email}","password": f"{password}"}
+  Cq = "select * from spotify.users where username = %(username)s"
+  Ccursor = conn.cursor(as_dict=True)
+  Cp = {"username": f"{username}","email": f"{email}","password": f"{password}"}
+  Ccursor.execute(Cq, Cp)
+  Cdata = Ccursor.fetchall()
+  if Cdata != []:
+    return redirect(angular_url + '/register')
+  else:
+    q = 'insert into spotify.users (username, email, password) values (%(username)s,%(email)s,%(password)s)'
+    cursor = conn.cursor(as_dict=True)
+    p = {"username": f"{username}","email": f"{email}","password": f"{password}"}
 
-  cursor.execute(q, p)
-  conn.commit()
-
-  return redirect(angular_url)
+    cursor.execute(q, p)
+    conn.commit()
+    #print(data)
+    return redirect(angular_url + '/login')
 
 @app.route("/login/data", methods=["POST"])
 def dati_login():
@@ -220,8 +228,13 @@ def dati_login():
   p = {"email": f"{email}","password": f"{password}"}
 
   cursor.execute(q, p)
-  conn.commit()
-  return  redirect(angular_url)
+  data = cursor.fetchall()
+  
+  print(data)
+  if data == []:
+    return redirect(angular_url + '/login')
+  else:
+    return  redirect(angular_url + '/home')
 
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA
 # TOGLIERE IL GENERE NELLA QUERY DELL'ARTISTA
