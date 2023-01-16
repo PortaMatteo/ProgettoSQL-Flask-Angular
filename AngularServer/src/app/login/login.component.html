@@ -30,16 +30,16 @@
                 <!-- Pills content -->
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form action="https://3245-portamatteo-progettosql-rxatmtl0t9p.ws-eu82.gitpod.io/login/data" method="post">
+                    <form (ngSubmit) = "onSubmit(box.value,box2.value)" action="https://3245-portamatteo-progettosql-z1qz8oxtg0n.ws-eu82.gitpod.io/login/data" method="post">
                         
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <input type="text" class="form-control" id="email"  placeholder="Inserisci l'email" name="email" required>
+                            <input #box type="text" class="form-control" id="email"  placeholder="Inserisci l'email" name="email" required >
                         </div>
                 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
-                            <input type="text" class="form-control" id="password"  placeholder="Inserisci la password" name="password" required>
+                            <input #box2  type="text" class="form-control" id="password"  placeholder="Inserisci la password" name="password" required >
                         </div>
                 
                         <!-- 2 column grid layout -->

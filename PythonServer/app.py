@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-rxatmtl0t9p.ws-eu82.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-z1qz8oxtg0n.ws-eu82.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -76,7 +76,7 @@ def search():
 
 #'select tracks.*,albums.[name] as album from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks inner join spotify.r_albums_tracks as r on tracks.id = r.track_id inner join spotify.albums on r.album_id = albums.id'
 
-  q = 'select tracks.*,albums.[id] as album_id,albums.[name] as album from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks left join spotify.r_albums_tracks as r on tracks.id = r.track_id left join spotify.albums on r.album_id = albums.id'
+  q = 'select tracks.*,albums.[id] as album_id,albums.[name] as album, artists.name as nome_a from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks left join spotify.r_albums_tracks as r on tracks.id = r.track_id left join spotify.albums on r.album_id = albums.id left join spotify.r_track_artist as ta on tracks.[id] = ta.track_id left join spotify.artists on ta.artist_id = artists.id'
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}%"}
 
@@ -234,8 +234,7 @@ def dati_login():
   if data == []:
     return redirect(angular_url + '/login')
   else:
-    return  redirect(angular_url + '/home')
-
+    return  jsonify(data) 
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA
 # TOGLIERE IL GENERE NELLA QUERY DELL'ARTISTA
 

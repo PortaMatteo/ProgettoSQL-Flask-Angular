@@ -9,17 +9,20 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent {
   @Input() yo! : string
+  username!: any;
   albums!: any;
   artists!: any;
   genres!: any;
   tracks!: any;
   loading!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-rxatmtl0t9p.ws-eu82.gitpod.io/search";
+  loading2!: Boolean;
+  url: string = "https://3245-portamatteo-progettosql-z1qz8oxtg0n.ws-eu82.gitpod.io/search";
   timeout: any;
   dropdown : any = [{'val':'all','text_val':'Generale'},{'val':'artists','text_val':'Artisti'},{'val':'albums','text_val':'Album'},{'val':'genres','text_val':'Generi'},{'val':'tracks','text_val':'Tracce'}]
   selected: string = 'all'
   constructor(public http: HttpClient) {
     this.get(this.url);
+    
   }
 
   get(url: string): void {
@@ -31,11 +34,6 @@ export class HomeComponent {
       this.tracks = res[3];
       this.loading = false;
     });
-  }
-
-  onKey = (value: string) => {
-    this.yo = value
-    
   }
 
   onKeySearch(event: any) {
@@ -54,5 +52,6 @@ export class HomeComponent {
   }
   onOptionsSelected(value:string){
     this.selected = value;
+    console.log(sessionStorage.getItem('username'))
   }
 }

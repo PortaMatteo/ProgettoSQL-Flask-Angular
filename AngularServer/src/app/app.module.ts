@@ -10,7 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AlbumComponent } from './album/album.component';
 import { ArtistComponent } from './artist/artist.component';
 import { TrackComponent } from './track/track.component';
-import { GenreComponent } from './genre/genre.component'; 
+import { GenreComponent } from './genre/genre.component';
+import { UserComponent } from './user/user.component'; 
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { GenreComponent } from './genre/genre.component';
     ArtistComponent,
     TrackComponent,
     GenreComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
