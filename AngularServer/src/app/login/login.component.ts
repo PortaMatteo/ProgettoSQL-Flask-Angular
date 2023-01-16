@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,16 +10,19 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
   email:string = '';
   passw:string = '';
-  url:string = "https://3245-portamatteo-progettosql-zv55c5d5uao.ws-eu82.gitpod.io/login/data"
-  constructor(public http: HttpClient) {
+  url:string = "https://3245-portamatteo-progettosql-codbf2yyicq.ws-eu82.gitpod.io/login/data"
+  constructor(public http: HttpClient,private router: Router) {
+    if (sessionStorage.getItem('id') != ''){
+      this.router.navigate(['/home'])
+    }
   }
 
-  onSubmit(data){
-    console.log(data)
-    /**this.http.post(this.url,{email:email,password:passw}).subscribe(res => {
-      console.log(res)
-      ///sessionStorage.setItem('username',res[0].username)
-      ///sessionStorage.setItem('id',res[0].id)
-      });*/
+  onClickSubmit(data) {
+    this.http.post(this.url,{email:data.email,password:data.password}).subscribe(res => {
+        console.log(res)
+        sessionStorage.setItem('username',res[0].username)
+        sessionStorage.setItem('id',res[0].id)
+        sessionStorage.setItem('email',res[0].email)
+    });
   }
 }

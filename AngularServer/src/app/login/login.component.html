@@ -30,16 +30,16 @@
                 <!-- Pills content -->
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form>
+                    <form #userlogin = "ngForm" (ngSubmit) = "onClickSubmit(userlogin.value)" >
                         
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <input #box type="text" class="form-control" id="email"  placeholder="Inserisci l'email" name="email" required >
+                            <input #box type="text" class="form-control" id="email"  placeholder="Inserisci l'email" name="email" required ngModel>
                         </div>
                 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
-                            <input #box2  type="text" class="form-control" id="password"  placeholder="Inserisci la password" name="password" required >
+                            <input #box2  type="text" class="form-control" id="password"  placeholder="Inserisci la password" name="password" required ngModel>
                         </div>
                 
                         <!-- 2 column grid layout -->
@@ -59,7 +59,7 @@
                         </div>
                 
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-4">Accedi</button>
+                        <input type = "submit" value = "submit"  class="btn btn-primary btn-block mb-4" value="Accedi">
                 
                         <!-- Register buttons -->
                         <div class="text-center">

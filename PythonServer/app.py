@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-zv55c5d5uao.ws-eu82.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-codbf2yyicq.ws-eu82.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -221,8 +221,10 @@ def dati_registrazione():
 
 @app.route("/login/data", methods=["POST"])
 def dati_login():
-  email = request.form["email"]
-  password = request.form["password"]
+  form_data = request.get_json()
+  print(form_data)
+  email = form_data['email']
+  password = form_data['password']
   q = "select * from spotify.users where email = %(email)s and password = %(password)s "
   cursor = conn.cursor(as_dict=True)
   p = {"email": f"{email}","password": f"{password}"}
@@ -230,14 +232,13 @@ def dati_login():
   cursor.execute(q, p)
   data = cursor.fetchall()
   
-  print(data)
   if data == []:
     return redirect(angular_url + '/login')
   else:
-    return  jsonify(data) 
+    return  jsonify(data)
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA
 # TOGLIERE IL GENERE NELLA QUERY DELL'ARTISTA
-
+# LE CANZIONI CON PIù ARTISTI VENGONO RIPETUTE, e sti cazzi?
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=3245, debug=True)
