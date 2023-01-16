@@ -16,13 +16,13 @@ export class HomeComponent {
   tracks!: any;
   loading!: Boolean;
   loading2!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-z1qz8oxtg0n.ws-eu82.gitpod.io/search";
+  url: string = "https://3245-portamatteo-progettosql-zv55c5d5uao.ws-eu82.gitpod.io/search";
   timeout: any;
   dropdown : any = [{'val':'all','text_val':'Generale'},{'val':'artists','text_val':'Artisti'},{'val':'albums','text_val':'Album'},{'val':'genres','text_val':'Generi'},{'val':'tracks','text_val':'Tracce'}]
   selected: string = 'all'
   constructor(public http: HttpClient) {
     this.get(this.url);
-    
+    console.log(localStorage.getItem('test'))
   }
 
   get(url: string): void {
@@ -52,6 +52,5 @@ export class HomeComponent {
   }
   onOptionsSelected(value:string){
     this.selected = value;
-    console.log(sessionStorage.getItem('username'))
   }
 }

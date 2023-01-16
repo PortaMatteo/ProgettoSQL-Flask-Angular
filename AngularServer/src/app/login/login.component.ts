@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -10,15 +10,16 @@ import { NgModule } from '@angular/core';
 export class LoginComponent {
   email:string = '';
   passw:string = '';
-  url:string = "https://3245-portamatteo-progettosql-z1qz8oxtg0n.ws-eu82.gitpod.io/login/data"
+  url:string = "https://3245-portamatteo-progettosql-zv55c5d5uao.ws-eu82.gitpod.io/login/data"
   constructor(public http: HttpClient) {
   }
 
-  onSubmit(email:string,passw:string){
-    this.http.post(this.url,{email:email,password:passw}).subscribe(res => {
-      sessionStorage.setItem('email',res[0].email)
-      sessionStorage.setItem('username',res[0].username)
-      sessionStorage.setItem('id',res[0].id)
-      });
+  onSubmit(data){
+    console.log(data)
+    /**this.http.post(this.url,{email:email,password:passw}).subscribe(res => {
+      console.log(res)
+      ///sessionStorage.setItem('username',res[0].username)
+      ///sessionStorage.setItem('id',res[0].id)
+      });*/
   }
 }
