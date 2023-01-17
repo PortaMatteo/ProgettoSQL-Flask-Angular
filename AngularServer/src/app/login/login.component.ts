@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email:string = '';
   passw:string = '';
-  url:string = "https://3245-portamatteo-progettosql-whcev6jxdzp.ws-eu82.gitpod.io/login/data"
+  url:string = "https://3245-portamatteo-progettosql-uyt5134aw7w.ws-eu82.gitpod.io/login/data"
   constructor(public http: HttpClient,private router: Router) {
-    if (sessionStorage.getItem('id') != ''){
-      this.router.navigate(['/home'])
-    }
+    //*if (sessionStorage.getItem('id') != ''){
+    //*  this.router.navigate(['/home'])
+   //* }
   }
 
   onClickSubmit(data) {

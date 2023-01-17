@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-whcev6jxdzp.ws-eu82.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-uyt5134aw7w.ws-eu82.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -235,7 +235,7 @@ def dati_login():
   if data == []:
     return redirect(angular_url + '/login')
   else:
-    return  jsonify(data)
+    return  jsonify(data) 
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA
 # TOGLIERE IL GENERE NELLA QUERY DELL'ARTISTA
 # LE CANZIONI CON PIù ARTISTI VENGONO RIPETUTE, e sti cazzi?

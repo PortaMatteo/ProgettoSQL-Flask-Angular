@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-
+  id = sessionStorage.getItem('id');
+  username = sessionStorage.getItem('username');
+  email = sessionStorage.getItem('email');
 }

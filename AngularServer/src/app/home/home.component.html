@@ -34,13 +34,19 @@
             </option>
           </select>
         </div>  
+        <div class="col-md-1">
+
+        </div>
         <div class="col-md-2  mr-3 mt-3">
-            <div class="">
-                <a href="/register"><button type="button" class="btn btn-secondary">Registrati</button></a>
-            
-                <a href="/login"><button type="button" class="btn btn-secondary" style="margin-left: 3px;">Accedi</button></a>
-            
+            <div class="" *ngIf="username != ''; else elseBlock">
+              <a href="/user"><img src="/assets/images/user.png" alt="user" style="width: 15%;"></a>
             </div>
+            <ng-template #elseBlock>
+              <a href="/register"><button type="button" class="btn btn-secondary">Registrati</button></a>
+            
+              <a href="/login"><button type="button" class="btn btn-secondary" style="margin-left: 3px;">Accedi</button></a>
+          
+            </ng-template>
         </div>    
     </div>
 

@@ -8,15 +8,15 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  @Input() yo! : string
-  username!: any;
+  @Input() yo! : string;
+  username = sessionStorage.getItem('username');
   albums!: any;
   artists!: any;
   genres!: any;
   tracks!: any;
   loading!: Boolean;
   loading2!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-whcev6jxdzp.ws-eu82.gitpod.io/search";
+  url: string = "https://3245-portamatteo-progettosql-uyt5134aw7w.ws-eu82.gitpod.io/search";
   timeout: any;
   dropdown : any = [{'val':'all','text_val':'Generale'},{'val':'artists','text_val':'Artisti'},{'val':'albums','text_val':'Album'},{'val':'genres','text_val':'Generi'},{'val':'tracks','text_val':'Tracce'}]
   selected: string = 'all'
