@@ -8,11 +8,12 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./album.component.css']
 })
 export class AlbumComponent {
-  url: string = "https://3245-portamatteo-progettosql-codbf2yyicq.ws-eu82.gitpod.io/search/album";
+  url: string = "https://3245-portamatteo-progettosql-nbttkg774wl.ws-eu82.gitpod.io/search/album";
   public id: any;
   album_n!:any;
   album_a!:any;
   tracks!:any;
+  artist_id: any;
   constructor(private activatedRoute: ActivatedRoute,public http: HttpClient) {
   }
   
@@ -28,6 +29,8 @@ export class AlbumComponent {
     this.http.get(url).subscribe(res => {
       this.album_n = res[0][0].name,
       this.album_a = res[0][0].artist,
+      this.artist_id = res[0][0].id,
+      console.log(this.artist_id)
       this.tracks = res[1]
     });
   }

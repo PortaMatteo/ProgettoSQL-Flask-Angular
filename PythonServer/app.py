@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-codbf2yyicq.ws-eu82.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-nbttkg774wl.ws-eu82.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -102,7 +102,7 @@ def search():
 def infoalbum():
   res = []
   arg = request.args.get("search")
-  q = 'select a.*,artists.[name] as artist from (select * from spotify.albums ' + ('where [id] like %(arg)s) ') + 'as a left join spotify.r_albums_artists as r on a.id = r.album_id left join spotify.artists on r.artist_id = artists.id '
+  q = 'select a.*,artists.[id],artists.[name] as artist from (select * from spotify.albums ' + ('where [id] like %(arg)s) ') + 'as a left join spotify.r_albums_artists as r on a.id = r.album_id left join spotify.artists on r.artist_id = artists.id '
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}"}
 

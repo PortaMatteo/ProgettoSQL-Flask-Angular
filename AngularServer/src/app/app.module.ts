@@ -13,6 +13,7 @@ import { TrackComponent } from './track/track.component';
 import { GenreComponent } from './genre/genre.component';
 import { UserComponent } from './user/user.component';
 import { FormsModule } from '@angular/forms';
+import { AuthComponent } from './auth/auth.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     TrackComponent,
     GenreComponent,
     UserComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,

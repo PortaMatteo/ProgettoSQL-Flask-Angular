@@ -87,10 +87,14 @@
                 </thead>
                 <tbody>
                   <tr>
+                    <th>#</th>
                     <th>TITOLO</th>
                     <th>ALBUM</th>
                   </tr>
-                  <tr *ngFor="let s of tracks">
+                  <tr *ngFor="let s of tracks; let i = index">
+                    <td>
+                       {{i}}
+                    </td>
                     <td class="col-md-3">
                         <a href="/track/{{s.id}}"><b>{{s.name}}</b></a><br>
                         
