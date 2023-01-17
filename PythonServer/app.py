@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-nbttkg774wl.ws-eu82.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-whcev6jxdzp.ws-eu82.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
