@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -6,5 +8,17 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  @Input() url : string = "https://3245-portamatteo-progettosql-uyt5134aw7w.ws-eu82.gitpod.io/register/data";
+  url : string = "https://3245-portamatteo-progettosql-c4tgw6u33v4.ws-eu82.gitpod.io/register/data";
+  email:string = '';
+  passw:string = '';
+  username:string = '';
+
+  constructor(public http: HttpClient,private router: Router) {
+
+  }
+
+  onClickSubmit(data) {
+    this.http.post(this.url,{username:data.username,email:data.email,password:data.password}).subscribe(res => {
+    });
+  }
 }

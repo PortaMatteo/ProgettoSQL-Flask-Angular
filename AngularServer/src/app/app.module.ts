@@ -14,6 +14,9 @@ import { GenreComponent } from './genre/genre.component';
 import { UserComponent } from './user/user.component';
 import { FormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
+import { AuthGuard } from './guards/auth.guard';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { IonicModule } from '@ionic/angular'; 
 
 
 @NgModule({
@@ -29,14 +32,16 @@ import { AuthComponent } from './auth/auth.component';
     GenreComponent,
     UserComponent,
     AuthComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    IonicModule.forRoot()
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

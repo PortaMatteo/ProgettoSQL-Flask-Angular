@@ -76,7 +76,7 @@ def search():
 
 #'select tracks.*,albums.[name] as album from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks inner join spotify.r_albums_tracks as r on tracks.id = r.track_id inner join spotify.albums on r.album_id = albums.id'
 
-  q = 'select tracks.*,albums.[id] as album_id,albums.[name] as album, artists.name as nome_a from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks left join spotify.r_albums_tracks as r on tracks.id = r.track_id left join spotify.albums on r.album_id = albums.id left join spotify.r_track_artist as ta on tracks.[id] = ta.track_id left join spotify.artists on ta.artist_id = artists.id'
+  q = 'select tracks.*,albums.[id] as album_id,albums.[name] as album, artists.name as nome_a,artists.id as id_a from (select top 10 * from spotify.tracks ' + ('where [name] like %(arg)s) ' if arg != None and arg != '' else ")") + 'as tracks left join spotify.r_albums_tracks as r on tracks.id = r.track_id left join spotify.albums on r.album_id = albums.id left join spotify.r_track_artist as ta on tracks.[id] = ta.track_id left join spotify.artists on ta.artist_id = artists.id'
   cursor = conn.cursor(as_dict=True)
   p = {"arg": f"{arg}%"}
 
@@ -199,9 +199,11 @@ def infotrack():
 
 @app.route("/register/data", methods=["POST"])
 def dati_registrazione():
-  username = request.form["username"]
-  email = request.form["email"]
-  password = request.form["password"]
+  form_data = request.get_json()
+  username = form_data["username"]
+  email = form_data["email"]
+  password = form_data["password"]
+  print(username)
   Cq = "select * from spotify.users where username = %(username)s"
   Ccursor = conn.cursor(as_dict=True)
   Cp = {"username": f"{username}","email": f"{email}","password": f"{password}"}
@@ -236,6 +238,17 @@ def dati_login():
     return redirect(angular_url + '/login')
   else:
     return  jsonify(data) 
+
+@app.route("/modify", methods=["POST"])
+def modifica_dati():
+  form_data = request.get_json()
+  username = form_data['username']
+  email = form_data['email']
+  #email = request.form["email"]
+  print(username,'',email)
+  return email 
+
+
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA
 # TOGLIERE IL GENERE NELLA QUERY DELL'ARTISTA
 # LE CANZIONI CON PIù ARTISTI VENGONO RIPETUTE, e sti cazzi?
