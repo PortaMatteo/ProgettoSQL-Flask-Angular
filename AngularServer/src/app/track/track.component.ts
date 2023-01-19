@@ -14,6 +14,7 @@ export class TrackComponent {
   track_g!:any;
   track_a!:any;
   tracks!:any;
+  username = sessionStorage.getItem('username');
   constructor(private activatedRoute: ActivatedRoute,public http: HttpClient) {
   }
   

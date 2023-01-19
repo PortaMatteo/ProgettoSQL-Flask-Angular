@@ -197,6 +197,25 @@ def infotrack():
 
   return jsonify(res)
 
+@app.route("/search/genre", methods=["GET"])
+def infogenre():
+  res = []
+  arg = request.args.get("search")
+  q = 'select TOP 50 b.* from (select * from spotify.artists where id in (select artist_id from spotify.r_artist_genre ' + ('where genre_id like %(arg)s ))as b ') + 'order by b.followers desc'
+  cursor = conn.cursor(as_dict=True)
+  p = {"arg": f"{arg}"}
+
+  cursor.execute(q, p)
+  data = cursor.fetchall()
+
+
+  res.append(data)
+  
+  print(res)
+
+  return jsonify(res)
+
+
 @app.route("/register/data", methods=["POST"])
 def dati_registrazione():
   form_data = request.get_json()
@@ -249,7 +268,7 @@ def modifica_dati():
   if username != "":
     Cq = "select * from spotify.users where username = %(username)s"
     Ccursor = conn.cursor(as_dict=True)
-    Cp = {"username": f"{username}","email": f"{email}"}
+    Cp = {"id": f"{id}","username": f"{username}","email": f"{email}"}
     Ccursor.execute(Cq, Cp)
     Cdata = Ccursor.fetchall()
     if Cdata != []:
@@ -257,33 +276,33 @@ def modifica_dati():
     else:
      q = 'update spotify.users set username = %(username)s where id = %(id)s'
      cursor = conn.cursor(as_dict=True)
-     p = {"username": f"{username}","email": f"{email}"}
+     p = {"id": f"{id}","username": f"{username}","email": f"{email}"}
 
      cursor.execute(q, p)
-     data = cursor.fetchall()
+     conn.commit()
 
      if email != "":
       q = 'update spotify.users set email = %(email)s where id = %(id)s'
       cursor = conn.cursor(as_dict=True)
-      p = {"username": f"{username}","email": f"{email}"}
+      p = {"id": f"{id}","username": f"{username}","email": f"{email}"}
       cursor.execute(q, p)
-      data = cursor.fetchall()
-      return print(data) and jsonify(data)
+      conn.commit()
+      return jsonify(form_data)
      else:
-        return print(data) and jsonify(data)
+        return jsonify(form_data.pop(''))
 
   else:
     if email != "":
       q = 'update spotify.users set email = %(email)s where id = %(id)s'
       cursor = conn.cursor(as_dict=True)
-      p = {"username": f"{username}","email": f"{email}"}
+      p = {"id": f"{id}","username": f"{username}","email": f"{email}"}
       cursor.execute(q, p)
-      data = cursor.fetchall()
+      conn.commit()
     else:
-      return print(data) and jsonify(data)
+      return  jsonify(form_data.pop('email'))
 
-  print(data)
-  return jsonify(data)
+
+  return jsonify(form_data)
 
 
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA

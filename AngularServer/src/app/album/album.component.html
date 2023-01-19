@@ -14,38 +14,54 @@
 </head>
 
 <body>
-  <div class="container">
-    <b>ALBUM</b>
-    <h1 class="display-1"><b>{{album_n}}</b></h1>
-    <b>ARTISTA</b>
-    <a href="/artist/{{artist_id}}">
-      <h3><b>{{album_a}}</b></h3>
-    </a>
+  <div class="row" >
+    <div class="col-md-2" >
+      <div class="sidenav">
+        <a href="/home"><h2>MyTune</h2></a>
+        <a href="/home">Home</a>
+        <a href="#preferiti">Preferiti</a>
+        <a href="#plylist">Playlist</a>
+        <div *ngIf="username != null; else elseBlockbar">
+          <a href="/user">Profilo</a>
+        </div>
+        <ng-template #elseBlockbar>
+          <a href="/login">Profilo</a>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <b>ALBUM</b>
+      <h1 class="display-1"><b>{{album_n}}</b></h1>
+
+      <a href="/artist/{{artist_id}}">
+        <h3><b>{{album_a}}</b></h3>
+      </a>
 
 
-    <table *ngIf="tracks.length >= 1" class="table">
-      <thead>
-        <th>Tracce</th>
-      </thead>
-      <tbody>
-        <tr>
-          <th>#</th>
-          <th>TITOLO</th>
-        </tr>
+      <table *ngIf="tracks.length >= 1" class="table">
+        <thead>
+          <th>Tracce</th>
+        </thead>
+        <tbody>
+          <tr>
+            <th>#</th>
+            <th>TITOLO</th>
+          </tr>
 
-        <tr *ngFor="let s of tracks; let i = index">
-          <td>
-            {{i}}
-          </td>
+          <tr *ngFor="let s of tracks; let i = index">
+            <td>
+              {{i}}
+            </td>
 
-          <td>
-            <a href="/track/{{s.id}}"><b>{{s.name}}</b></a>
-          </td>
-          <td class="col-md-2">
-            <audio id="audio" src="{{s.preview_url}}" style="height:30px;" controls></audio>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td>
+              <a href="/track/{{s.id}}"><b>{{s.name}}</b></a>
+            </td>
+            <td class="col-md-2">
+              <audio id="audio" src="{{s.preview_url}}" style="height:30px;" controls></audio>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </body>

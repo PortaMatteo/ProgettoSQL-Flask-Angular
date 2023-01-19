@@ -14,6 +14,7 @@ export class AlbumComponent {
   album_a!:any;
   tracks!:any;
   artist_id: any;
+  username = sessionStorage.getItem('username');
   constructor(private activatedRoute: ActivatedRoute,public http: HttpClient) {
   }
   

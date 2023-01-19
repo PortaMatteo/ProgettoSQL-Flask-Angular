@@ -3,7 +3,7 @@ a {
     text-decoration: none ;
 }
 .card {
-    background-color: aquamarine;
+    background-color: rgb(225, 230, 228);
     transition: all .5s;
 }
 .card:hover {
@@ -45,28 +45,3 @@ a {
     .sidenav a {font-size: 18px;}
   }
 
-.large-font{
-    font-size:xxx-large;
-  }
-.top-20{
-    position:relative;
-    top:20vh;
-  }
-ion-icon.active{
-    animation:like 0.5s 1;
-    fill:red;
-    stroke:none;
-  }
-ion-icon{
-    fill:transparent;
-    stroke:black;
-    stroke-width:30;
-    transition:all 0.5s;
-  }
-  
-  
-@keyframes like {
-    0%   { transform: scale(1); }
-    90%   { transform: scale(1.2); }
-    100% { transform: scale(1.1); }
-  }
