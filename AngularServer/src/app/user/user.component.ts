@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-  url:string = "https://3245-portamatteo-progettosql-re7fqj308cr.ws-eu83.gitpod.io/modify"
+  url:string = "https://3245-portamatteo-progettosql-tfawahbl1zv.ws-eu83.gitpod.io/modify"
   id = sessionStorage.getItem('id');
   username = sessionStorage.getItem('username');
   email = sessionStorage.getItem('email');
@@ -18,13 +18,12 @@ export class UserComponent {
     }
   }
   onClickSubmit(data) {
-    this.http.post(this.url,{email:data.email,username:data.username}).subscribe(res => {
+    this.http.post(this.url,{id:sessionStorage.getItem('id'),email:data.email,username:data.username}).subscribe(res => {
     });
   }
   
   logout(){
     sessionStorage.clear()
-    console.log('ciao ' + sessionStorage.getItem('id'))
     if (sessionStorage.getItem('id') == null){
       this.router.navigate(['/home'])
     }

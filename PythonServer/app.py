@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-re7fqj308cr.ws-eu83.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-tfawahbl1zv.ws-eu83.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -242,11 +242,48 @@ def dati_login():
 @app.route("/modify", methods=["POST"])
 def modifica_dati():
   form_data = request.get_json()
+  id = form_data['id']
+  print(id)
   username = form_data['username']
   email = form_data['email']
-  #email = request.form["email"]
-  print(username,'',email)
-  return email 
+  if username != "":
+    Cq = "select * from spotify.users where username = %(username)s"
+    Ccursor = conn.cursor(as_dict=True)
+    Cp = {"username": f"{username}","email": f"{email}"}
+    Ccursor.execute(Cq, Cp)
+    Cdata = Ccursor.fetchall()
+    if Cdata != []:
+      return redirect(angular_url + '/user')
+    else:
+     q = 'update spotify.users set username = %(username)s where id = %(id)s'
+     cursor = conn.cursor(as_dict=True)
+     p = {"username": f"{username}","email": f"{email}"}
+
+     cursor.execute(q, p)
+     data = cursor.fetchall()
+
+     if email != "":
+      q = 'update spotify.users set email = %(email)s where id = %(id)s'
+      cursor = conn.cursor(as_dict=True)
+      p = {"username": f"{username}","email": f"{email}"}
+      cursor.execute(q, p)
+      data = cursor.fetchall()
+      return print(data) and jsonify(data)
+     else:
+        return print(data) and jsonify(data)
+
+  else:
+    if email != "":
+      q = 'update spotify.users set email = %(email)s where id = %(id)s'
+      cursor = conn.cursor(as_dict=True)
+      p = {"username": f"{username}","email": f"{email}"}
+      cursor.execute(q, p)
+      data = cursor.fetchall()
+    else:
+      return print(data) and jsonify(data)
+
+  print(data)
+  return jsonify(data)
 
 
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA
