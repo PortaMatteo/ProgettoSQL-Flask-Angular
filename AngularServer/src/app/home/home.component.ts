@@ -16,7 +16,7 @@ export class HomeComponent {
   tracks!: any;
   loading!: Boolean;
   loading2!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-c4tgw6u33v4.ws-eu82.gitpod.io/search";
+  url: string = "https://3245-portamatteo-progettosql-re7fqj308cr.ws-eu83.gitpod.io/search";
   timeout: any;
   dropdown : any = [{'val':'all','text_val':'Generale'},{'val':'artists','text_val':'Artisti'},{'val':'albums','text_val':'Album'},{'val':'genres','text_val':'Generi'},{'val':'tracks','text_val':'Tracce'}]
   selected: string = 'all'

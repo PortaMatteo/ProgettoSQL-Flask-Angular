@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-  url:string = "https://3245-portamatteo-progettosql-c4tgw6u33v4.ws-eu82.gitpod.io/modify"
+  url:string = "https://3245-portamatteo-progettosql-re7fqj308cr.ws-eu83.gitpod.io/modify"
   id = sessionStorage.getItem('id');
   username = sessionStorage.getItem('username');
   email = sessionStorage.getItem('email');

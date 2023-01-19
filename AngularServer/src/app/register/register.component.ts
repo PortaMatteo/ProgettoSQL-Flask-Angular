@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  url : string = "https://3245-portamatteo-progettosql-c4tgw6u33v4.ws-eu82.gitpod.io/register/data";
+  url : string = "https://3245-portamatteo-progettosql-re7fqj308cr.ws-eu83.gitpod.io/register/data";
   email:string = '';
   passw:string = '';
   username:string = '';
@@ -19,6 +19,12 @@ export class RegisterComponent {
 
   onClickSubmit(data) {
     this.http.post(this.url,{username:data.username,email:data.email,password:data.password}).subscribe(res => {
+      if(res){
+        this.router.navigate(['/login'])
+      }
+      else{
+        alert('erorre')
+      }
     });
   }
 }

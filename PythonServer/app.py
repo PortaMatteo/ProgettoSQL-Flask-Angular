@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,redirect,url_for,Response,url_for,redirect, jsonify
+from flask import Flask, render_template, request,redirect,url_for,Response,url_for,redirect, jsonify,json
 import io
 import pandas as pd
 import pymssql
@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-uyt5134aw7w.ws-eu82.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-re7fqj308cr.ws-eu83.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -210,7 +210,7 @@ def dati_registrazione():
   Ccursor.execute(Cq, Cp)
   Cdata = Ccursor.fetchall()
   if Cdata != []:
-    return redirect(angular_url + '/register')
+    return json.dumps(False)
   else:
     q = 'insert into spotify.users (username, email, password) values (%(username)s,%(email)s,%(password)s)'
     cursor = conn.cursor(as_dict=True)
@@ -219,7 +219,7 @@ def dati_registrazione():
     cursor.execute(q, p)
     conn.commit()
     #print(data)
-    return redirect(angular_url + '/login')
+    return json.dumps(True)
 
 @app.route("/login/data", methods=["POST"])
 def dati_login():

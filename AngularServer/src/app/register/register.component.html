@@ -23,26 +23,26 @@
                         aria-controls="pills-register" aria-selected="false">Registrati</a>
                     </li>
                 </ul>
-                <form action="https://3245-portamatteo-progettosql-nbttkg774wl.ws-eu82.gitpod.io/register/data" method="post">
+                <form #userRegister = "ngForm" (ngSubmit) = "onClickSubmit(userRegister.value)">
             
                     <!-- Username input -->
                     <div class="form-outline mb-4">
                         <div class="form-outline mb-4">
-                            <input type="text" class="form-control" id="username"  placeholder="Inserisci l'username" name="username" required>
+                            <input type="text" class="form-control" id="username"  placeholder="Inserisci l'username" name="username" required ngModel>
                         </div>
                     </div>
             
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <div class="form-outline mb-4">
-                            <input type="email" class="form-control" id="email"  placeholder="Inserisci l'email" name="email" required>
+                            <input type="email" class="form-control" id="email"  placeholder="Inserisci l'email" name="email" required ngModel>
                         </div>
                     </div>
             
                     <!-- Password input -->
                     <div class="form-outline mb-4">
                         <div class="form-outline mb-4">
-                            <input type="text" class="form-control" id="password"  placeholder="Inserisci la password" name="password" required>
+                            <input type="text" class="form-control" id="password"  placeholder="Inserisci la password" name="password" required ngModel>
                         </div>
                     </div>
                      
@@ -51,7 +51,7 @@
             
                     <!-- Submit button -->
                     
-                    <button type="submit" id="registratibtn" class="btn btn-primary btn-block mb-3">Registrati</button>
+                    <input type = "submit"  class="btn btn-primary btn-block mb-4" value="Registrati">
 
                 </form>
                 <script type="text/javascript">
