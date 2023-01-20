@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-  url:string = "https://3245-portamatteo-progettosql-tfawahbl1zv.ws-eu83.gitpod.io/modify"
+  url:string = "https://3245-portamatteo-progettosql-s4pyv9a7xfc.ws-eu83.gitpod.io/modify"
   id = sessionStorage.getItem('id');
   username = sessionStorage.getItem('username');
   email = sessionStorage.getItem('email');
@@ -18,7 +18,16 @@ export class UserComponent {
     }
   }
   onClickSubmit(data) {
-    this.http.post(this.url,{id:sessionStorage.getItem('id'),email:data.email,username:data.username}).subscribe(res => {
+    this.http.post(this.url,{id:sessionStorage.getItem('id'),username:data.username}).subscribe(res => {
+      if(res){
+        console.log(data.username)
+        sessionStorage.setItem('username',data.username)
+        window.location.reload()
+      }
+      else{
+        alert('erorre')
+        window.location.reload()
+      }
     });
   }
   
@@ -28,4 +37,5 @@ export class UserComponent {
       this.router.navigate(['/home'])
     }
   }
+
 }

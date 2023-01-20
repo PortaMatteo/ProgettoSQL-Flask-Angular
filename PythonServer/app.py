@@ -8,7 +8,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-tfawahbl1zv.ws-eu83.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-s4pyv9a7xfc.ws-eu83.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -262,47 +262,26 @@ def dati_login():
 def modifica_dati():
   form_data = request.get_json()
   id = form_data['id']
-  print(id)
   username = form_data['username']
-  email = form_data['email']
-  if username != "":
+  if username == "":
+    return json.dumps(False)
+  else:  
     Cq = "select * from spotify.users where username = %(username)s"
     Ccursor = conn.cursor(as_dict=True)
-    Cp = {"id": f"{id}","username": f"{username}","email": f"{email}"}
+    Cp = {"id": f"{id}","username": f"{username}"}
     Ccursor.execute(Cq, Cp)
     Cdata = Ccursor.fetchall()
     if Cdata != []:
-      return redirect(angular_url + '/user')
+      return json.dumps(False)
     else:
-     q = 'update spotify.users set username = %(username)s where id = %(id)s'
-     cursor = conn.cursor(as_dict=True)
-     p = {"id": f"{id}","username": f"{username}","email": f"{email}"}
-
-     cursor.execute(q, p)
-     conn.commit()
-
-     if email != "":
-      q = 'update spotify.users set email = %(email)s where id = %(id)s'
+      q = 'update spotify.users set username = %(username)s where id = %(id)s'
       cursor = conn.cursor(as_dict=True)
-      p = {"id": f"{id}","username": f"{username}","email": f"{email}"}
+      p = {"id": f"{id}","username": f"{username}"}
+
       cursor.execute(q, p)
       conn.commit()
-      return jsonify(form_data)
-     else:
-        return jsonify(form_data.pop(''))
-
-  else:
-    if email != "":
-      q = 'update spotify.users set email = %(email)s where id = %(id)s'
-      cursor = conn.cursor(as_dict=True)
-      p = {"id": f"{id}","username": f"{username}","email": f"{email}"}
-      cursor.execute(q, p)
-      conn.commit()
-    else:
-      return  jsonify(form_data.pop('email'))
-
-
-  return jsonify(form_data)
+      return json.dumps(True)
+   
 
 
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA

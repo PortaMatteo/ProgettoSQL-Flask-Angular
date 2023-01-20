@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./genre.component.css']
 })
 export class GenreComponent {
-  url: string = "https://3245-portamatteo-progettosql-tfawahbl1zv.ws-eu83.gitpod.io/search/genre";
+  url: string = "https://3245-portamatteo-progettosql-s4pyv9a7xfc.ws-eu83.gitpod.io/search/genre";
   public id: any;
   artists!:any;
   username = sessionStorage.getItem('username');
