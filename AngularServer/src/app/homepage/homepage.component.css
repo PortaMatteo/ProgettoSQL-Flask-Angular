@@ -1,0 +1,30 @@
+body {
+    background-image: url('/assets/images/sfondoHome.jpg');
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+#text {
+
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.btn {
+    background-color:transparent;
+    color:aliceblue;
+    font-size:larger;
+    border: 1px solid aliceblue;
+    color:#eee;
+    border-radius: 0px;
+    margin-inline-end: 10px;
+}
+
+.btn:hover{
+    color:rgb(110, 114, 114);
+}

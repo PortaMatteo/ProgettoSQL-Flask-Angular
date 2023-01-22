@@ -1,0 +1,108 @@
+<div *ngIf="scelta == 'watch'">
+    <div class="row" >
+        <div class="col-md-2" >
+          <div class="sidenav">
+            <a href="/home"><h2>MyTune</h2></a>
+            <a href="/home">Home</a>
+            <a href="/like">Preferiti</a>
+            <div class="btn-group dropend">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  Playlist
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/playlist/watch">Watch</a></li>
+                  <li><a class="dropdown-item" href="/playlist/add">Add</a></li>
+                  
+                </ul>
+              </div>
+            <div *ngIf="username != null; else elseBlockbar">
+              <a href="/user">Profilo</a>
+            </div>
+            <ng-template #elseBlockbar>
+              <a href="/login">Profilo</a>
+            </ng-template>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-4">
+              <h3><p>Playlist</p></h3>
+            </div>
+            <div class="col-md-8">
+            </div>
+          </div>
+          
+          <table *ngIf="playlists.length >= 1" class="table">
+              <tbody>
+                <tr>
+                  <th>#</th>
+                  <th>Nome</th>
+                  <th>Descrizione</th>
+                </tr>
+              
+                <tr *ngFor="let p of playlists; let i = index">
+                  <td>
+                    {{i}}
+                  </td>
+                  <td>
+                      <a href="/playlist/view/{{p.id}}"><b>{{p.name}}</b></a><br>
+                  </td>
+                  <td>
+                    {{p.description}}
+                  </td>
+                  <td class="col-md-1">
+                    <form #deletePlaylist_f = "ngForm" (ngSubmit) = "deletePlaylist(p.id)">
+                      <input type="submit" value="❌">
+                    </form>
+                  </td>
+                  
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+</div>
+<div *ngIf="scelta == 'add'">
+    <div class="row">
+        <div class="col-md-2" >
+            <div class="sidenav">
+              <a href="/home"><h2>MyTune</h2></a>
+              <a href="/home">Home</a>
+              <a href="/like">Preferiti</a>
+              <div class="btn-group dropend">
+                  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Playlist
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/playlist/watch">Watch</a></li>
+                    <li><a class="dropdown-item" href="/playlist/add">Add</a></li>
+                    
+                  </ul>
+                </div>
+              <div *ngIf="username != null; else elseBlockbar">
+                <a href="/user">Profilo</a>
+              </div>
+              <ng-template #elseBlockbar>
+                <a href="/login">Profilo</a>
+              </ng-template>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <form #addPlaylist = "ngForm" (ngSubmit) = "onClickSubmit(addPlaylist.value)">
+                <h1 class="mt-3 text-center">Crea Playlist</h1>
+                <div class="form-outline mb-4 mt-3 col-md-6 container">
+                    <input  type="text" class="form-control" id="nome"  placeholder="Inserisci il nome della playlist" name="name" required ngModel>
+                </div>
+        
+                <div class="form-outline mb-4 col-md-6 container">
+                    <input  type="text" class="form-control" id="descrizione"  placeholder="Inserisci una descrizione" name="description" ngModel>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <input type = "submit" value = "submit"  class="btn btn-primary btn-block mb-4 "  value="Crea">
+                </div>
+                
+            </form>
+          </div>
+    </div>
+    
+</div>

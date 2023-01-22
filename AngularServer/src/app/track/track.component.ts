@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./track.component.css']
 })
 export class TrackComponent {
-  url: string = "https://3245-portamatteo-progettosql-73seh3shd5e.ws-eu83.gitpod.io/search/track";
+  url: string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/search/track";
   public id: any;
   track_n!:any;
   track_g!:any;

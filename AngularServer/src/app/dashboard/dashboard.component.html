@@ -1,1 +1,94 @@
-<p>dashboard works!</p>
+<div class="row">
+    <div class="col-2" >
+        <div class="sidenav">
+        <a href="/home"><h2>MyTune</h2></a>
+        <a href="/home">Home</a>
+        <a href="/like">Preferiti</a>
+        <div class="btn-group dropend">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Playlist
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/playlist/watch">Watch</a></li>
+              <li><a class="dropdown-item" href="/playlist/add">Add</a></li>
+              
+            </ul>
+          </div>
+        <div *ngIf="username != null; else elseBlockbar">
+            <a href="/user">Profilo</a>
+        </div>
+        <ng-template #elseBlockbar>
+            <a href="/login">Profilo</a>
+        </ng-template>
+        </div>
+    </div>
+    <div class="col-10">
+        <div *ngIf="scelta == 'track'" class="container mt-5">
+            <form #track = "ngForm" (ngSubmit) = "addTrack(track.value)" >
+                            
+                <div class="form-outline mb-4">
+                    <input #box type="text" class="form-control" id="track_name"  placeholder="Nome traccia" name="track_name" required ngModel>
+                </div>
+                <div class="form-outline mb-4">
+                    <input #box2 type="text" class="form-control" id="duration"  placeholder="Durata traccia in secondi" name="duration" required ngModel>
+                </div>
+                <div class="form-outline mb-4">
+                    <input id="box" #box3 (keyup)="onKeySearch($event)" class="form-control mt-3">
+                    <select class='select-option'
+                        #mySelect
+                        (change)='onOptionsSelected(mySelect.value)'>
+                        <option class="option" value="" selected></option>
+                        <option class='option'
+                            *ngFor='let option of dropdown' 
+                            [value]="option.id">{{option.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-outline mb-4">
+                    <input id="box" #box4 (keyup)="onKeySearch2($event)" class="form-control mt-3">
+                    <select class='select-option'
+                        #mySelect2
+                        (change)='onOptionsSelected2(mySelect2.value)'>
+                        <option class="option" value="" selected></option>
+                        <option class='option'
+                            *ngFor='let option2 of dropdown2' 
+                            [value]="option2.id">{{option2.name}}
+                        </option>
+                    </select>
+                </div>
+        
+                <input type = "submit" value = "submit"  class="btn btn-primary btn-block mb-4" value="Aggiungi">
+        
+        
+            </form>
+        </div>
+        <div *ngIf="scelta == 'artist'"  class="container mt-5" >
+            <form #artist = "ngForm" (ngSubmit) = "addArtist(artist.value)" >
+                            
+                <div class="form-outline mb-4">
+                    <input #box type="text" class="form-control" id="artist_name"  placeholder="Nome artista" name="artist_name" required ngModel>
+                </div>
+        
+                <input type = "submit" value = "submit"  class="btn btn-primary btn-block mb-4" value="Aggiungi">
+        
+        
+            </form>
+        </div>
+        <div *ngIf="scelta == 'album'"  class="container mt-5"> 
+            <form #album = "ngForm" (ngSubmit) = "addAlbum(album.value)" >
+                            
+                <div class="form-outline mb-4">
+                    <input #box type="text" class="form-control" id="album_name"  placeholder="Nome album" name="album_name" required ngModel>
+                </div>
+        
+                <input type = "submit" value = "submit"  class="btn btn-primary btn-block mb-4" value="Aggiungi">
+        
+        
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+

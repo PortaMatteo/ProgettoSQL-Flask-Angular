@@ -1,0 +1,63 @@
+
+<div class="row" >
+    <div class="col-2" >
+      <div class="sidenav">
+        <a href="/home"><h2>MyTune</h2></a>
+        <a href="/home">Home</a>
+        <a href="/like">Preferiti</a>
+        <div class="btn-group dropend">
+          <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Playlist
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/playlist/watch">Watch</a></li>
+            <li><a class="dropdown-item" href="/playlist/add">Add</a></li>
+            
+          </ul>
+        </div>
+        <div *ngIf="username != null; else elseBlockbar">
+          <a href="/user">Profilo</a>
+        </div>
+        <ng-template #elseBlockbar>
+          <a href="/login">Profilo</a>
+        </ng-template>
+      </div>
+    </div>
+    <div class="col-10">
+      <div class="row">
+        <div class="col-4">
+          <h3><p>Preferiti</p></h3>
+        </div>
+        <div class="col-8">
+        </div>
+      </div>
+      
+      <table *ngIf="tracks.length >= 1" class="table">
+          <tbody>
+            <tr>
+              <th>#</th>
+              <th>TITOLO</th>
+            </tr>
+          
+            <tr *ngFor="let s of tracks; let i = index">
+              <td>
+                {{i}}
+              </td>
+              <td>
+                  <a href="/track/{{s.id}}"><b>{{s.name}}</b></a><br>
+              </td>
+              <td class="col-md-1">
+                <form #dislike_f = "ngForm" (ngSubmit) = "dislike(s.id)">
+                  <input type="submit" value="❌">
+                </form>
+              </td>
+              <td class="col-2">
+                <audio id="audio" src="{{s.preview_url}}" style="height:30px;" controls></audio>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+  
+  

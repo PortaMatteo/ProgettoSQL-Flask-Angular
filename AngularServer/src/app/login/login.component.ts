@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   email:string = '';
   passw:string = '';
-  url:string = "https://3245-portamatteo-progettosql-73seh3shd5e.ws-eu83.gitpod.io/login/data"
+  url:string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/login/data"
   constructor(public http: HttpClient,private router: Router) {
     if (sessionStorage.getItem('id') != null){
       this.router.navigate(['/home'])
@@ -23,6 +23,7 @@ export class LoginComponent {
         sessionStorage.setItem('username',res[0].username)
         sessionStorage.setItem('id',res[0].id)
         sessionStorage.setItem('email',res[0].email)
+        sessionStorage.setItem('status',res[0].status)
         this.router.navigate(['/login'])
         if (sessionStorage.getItem('id') != null){
           this.router.navigate(['/home'])

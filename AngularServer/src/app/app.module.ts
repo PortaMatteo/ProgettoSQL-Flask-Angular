@@ -16,7 +16,10 @@ import { FormsModule } from '@angular/forms';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './guards/auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { IonicModule } from '@ionic/angular'; 
+import { IonicModule } from '@ionic/angular';
+import { LikeComponent } from './like/like.component';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { PlaylistDotComponent } from './playlist-dot/playlist-dot.component'; 
 
 
 @NgModule({
@@ -33,6 +36,9 @@ import { IonicModule } from '@ionic/angular';
     UserComponent,
     AuthComponent,
     DashboardComponent,
+    LikeComponent,
+    PlaylistComponent,
+    PlaylistDotComponent,
   ],
   imports: [
     BrowserModule,

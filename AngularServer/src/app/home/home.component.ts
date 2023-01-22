@@ -17,15 +17,31 @@ export class HomeComponent {
   tracks!: any;
   loading!: Boolean;
   loading2!: Boolean;
+  is_logged:Boolean = false;
   id_t!:any;
-  url: string = "https://3245-portamatteo-progettosql-73seh3shd5e.ws-eu83.gitpod.io/search";
-  url2: string = "https://3245-portamatteo-progettosql-73seh3shd5e.ws-eu83.gitpod.io/like";
+  url: string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/search";
+  url2: string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/like";
+  url3: string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/liked";
+  url4: string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/playlist/watch";
+  tracks_liked!:any;
+  
   timeout: any;
   dropdown : any = [{'val':'all','text_val':'Generale'},{'val':'artists','text_val':'Artisti'},{'val':'albums','text_val':'Album'},{'val':'genres','text_val':'Generi'},{'val':'tracks','text_val':'Tracce'}]
-  selected: string = 'all'
+  selected: string = 'all';
+  playlists!:any;
   constructor(public http: HttpClient) {
+    if (sessionStorage.getItem('id') != null){
+      this.is_logged=true
+    }
+    else{
+      this.is_logged=false
+      console.log('non sei loggato')
+    }
     this.get(this.url);
-  }
+    const timeoutID = setTimeout(() => {
+      this.get2(this.url4 + "?id=" + this.id_u);
+    }, 2 * 1000);
+    }
 
   get(url: string): void {
     this.loading = true;
@@ -35,6 +51,12 @@ export class HomeComponent {
       this.genres = res[2];
       this.tracks = res[3];
       this.loading = false;
+    });
+  }
+  
+  get2(url: string): void {
+    this.http.get(url).subscribe(res => {
+      this.playlists=res
     });
   }
 
@@ -57,6 +79,13 @@ export class HomeComponent {
   }
   like(data){
     console.log(data)
-    this.http.post(this.url2,{id_t:data.id_t,id_u:this.id_u}).subscribe(res => {});
+    this.http.post(this.url2,{id_t:data,id_u:this.id_u}).subscribe(res => {
+      if(res == false){
+        alert('La traccia è già tra i preferiti')
+      }
+    });
+  }
+  onOptionsSelected2(value1,value2){
+    this.http.post('https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/addplaylist',{playlist_id:value1,track_id:value2}).subscribe(res => {});
   }
 }

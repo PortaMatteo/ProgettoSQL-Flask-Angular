@@ -12,6 +12,9 @@ import { GenreComponent } from './genre/genre.component';
 import { TrackComponent } from './track/track.component';
 import { UserComponent } from './user/user.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LikeComponent } from './like/like.component';
+import {PlaylistComponent} from './playlist/playlist.component';
+import { PlaylistDotComponent } from './playlist-dot/playlist-dot.component';
 
 export const routes: Routes = [
   
@@ -24,7 +27,10 @@ export const routes: Routes = [
   {path: "genre/:id", component: GenreComponent },
   {path: "track/:id", component: TrackComponent },
   {path: "user", component: UserComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate : [AuthGuard] }];
+  {path: "like", component: LikeComponent},
+  {path: "playlist/:p", component: PlaylistComponent},
+  {path: "playlist/view/:p", component: PlaylistDotComponent},
+  {path: 'dashboard/:p', component: DashboardComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
