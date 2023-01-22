@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request,redirect,url_for,Response,url_for,redirect, jsonify,json
 import io
 import pandas as pd
+import datetime
 import pymssql
 from flask_cors import CORS
 
@@ -8,7 +9,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-s4pyv9a7xfc.ws-eu83.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-73seh3shd5e.ws-eu83.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -223,9 +224,9 @@ def dati_registrazione():
   email = form_data["email"]
   password = form_data["password"]
   print(username)
-  Cq = "select * from spotify.users where username = %(username)s"
+  Cq = "select * from spotify.users where username = %(username)s or email = %(email)s"
   Ccursor = conn.cursor(as_dict=True)
-  Cp = {"username": f"{username}","email": f"{email}","password": f"{password}"}
+  Cp = {"username": f"{username}","email": f"{email}"}
   Ccursor.execute(Cq, Cp)
   Cdata = Ccursor.fetchall()
   if Cdata != []:
@@ -281,8 +282,37 @@ def modifica_dati():
       cursor.execute(q, p)
       conn.commit()
       return json.dumps(True)
-   
 
+@app.route("/like", methods=["POST"])
+def liked():
+  now = datetime.datetime.now()
+  now = now.strftime('%Y-%m-%d %H:%M:%S')
+  form_data = request.get_json()
+  print(form_data)
+  id_u = form_data['id_u']
+  id_t = form_data['id_t']
+  print(now,id_t,id_u,'^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+  q = 'insert into spotify.favs (track_id, user_id, date) values (%(id_t)s,%(id_u)s,%(now)s)'
+  cursor = conn.cursor(as_dict=True)
+  p = {"id_t": f"{id_t}","id_u": f"{id_u}","now": f"{now}"}
+
+  cursor.execute(q, p)
+  conn.commit()
+  return 'like'
+   
+@app.route("/delete", methods=["POST"])
+def cancellazione_account():
+  form_data = request.get_json()
+  id = form_data["id"]
+  print(id)
+  q = 'delete from spotify.users where id = %(id)s'
+  cursor = conn.cursor(as_dict=True)
+  p = {"id": f"{id}"}
+
+  cursor.execute(q, p)
+  conn.commit()
+  return json.dumps(True)
+  
 
 # FARE LA QUERY PER LA TRACCIA IN BASE ALL'ARTISTA
 # TOGLIERE IL GENERE NELLA QUERY DELL'ARTISTA

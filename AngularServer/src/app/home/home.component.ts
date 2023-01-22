@@ -10,19 +10,21 @@ import { HttpClient } from '@angular/common/http';
 export class HomeComponent {
   @Input() yo! : string;
   username = sessionStorage.getItem('username');
+  id_u = sessionStorage.getItem('id');
   albums!: any;
   artists!: any;
   genres!: any;
   tracks!: any;
   loading!: Boolean;
   loading2!: Boolean;
-  url: string = "https://3245-portamatteo-progettosql-s4pyv9a7xfc.ws-eu83.gitpod.io/search";
+  id_t!:any;
+  url: string = "https://3245-portamatteo-progettosql-73seh3shd5e.ws-eu83.gitpod.io/search";
+  url2: string = "https://3245-portamatteo-progettosql-73seh3shd5e.ws-eu83.gitpod.io/like";
   timeout: any;
   dropdown : any = [{'val':'all','text_val':'Generale'},{'val':'artists','text_val':'Artisti'},{'val':'albums','text_val':'Album'},{'val':'genres','text_val':'Generi'},{'val':'tracks','text_val':'Tracce'}]
   selected: string = 'all'
   constructor(public http: HttpClient) {
     this.get(this.url);
-    console.log(localStorage.getItem('test'))
   }
 
   get(url: string): void {
@@ -53,5 +55,8 @@ export class HomeComponent {
   onOptionsSelected(value:string){
     this.selected = value;
   }
-  like(){}
+  like(data){
+    console.log(data)
+    this.http.post(this.url2,{id_t:data.id_t,id_u:this.id_u}).subscribe(res => {});
+  }
 }
