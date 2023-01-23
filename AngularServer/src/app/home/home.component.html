@@ -119,12 +119,12 @@
                       <input type="submit" value="♡">
                     </form>
                   </td>
-                  <td class="col-md-1">
+                  <td class="col-md-1" *ngIf="is_logged">
                     
                       <select class='select-option form-select'
                       #mySelect2
                       (change)='onOptionsSelected2(mySelect2.value,s.id)'>
-                      <option class="option" value="" selected>+</option>
+                      <option class="option" value="" selected >Playlist</option>
                       <option class='option'
                           *ngFor='let p of playlists' 
                           [value]="p.id">{{p.name}}

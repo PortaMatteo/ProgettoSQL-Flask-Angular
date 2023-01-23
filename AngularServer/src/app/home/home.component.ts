@@ -19,10 +19,10 @@ export class HomeComponent {
   loading2!: Boolean;
   is_logged:Boolean = false;
   id_t!:any;
-  url: string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/search";
-  url2: string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/like";
-  url3: string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/liked";
-  url4: string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/playlist/watch";
+  url: string = "https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/search";
+  url2: string = "https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/like";
+  url3: string = "https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/liked";
+  url4: string = "https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/playlist/watch";
   tracks_liked!:any;
   
   timeout: any;
@@ -40,7 +40,7 @@ export class HomeComponent {
     this.get(this.url);
     const timeoutID = setTimeout(() => {
       this.get2(this.url4 + "?id=" + this.id_u);
-    }, 2 * 1000);
+    }, 1 * 1000);
     }
 
   get(url: string): void {
@@ -86,6 +86,6 @@ export class HomeComponent {
     });
   }
   onOptionsSelected2(value1,value2){
-    this.http.post('https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/addplaylist',{playlist_id:value1,track_id:value2}).subscribe(res => {});
+    this.http.post('https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/addplaylist',{playlist_id:value1,track_id:value2}).subscribe(res => {});
   }
 }

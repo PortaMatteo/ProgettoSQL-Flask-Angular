@@ -3,9 +3,7 @@ a {
     text-decoration: none ;
 }
 
-.card:hover {
-    opacity: .5;
-  }
+
 
 .sidenav {
     height: 100%;

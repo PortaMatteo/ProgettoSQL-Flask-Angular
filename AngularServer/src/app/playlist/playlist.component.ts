@@ -8,14 +8,17 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./playlist.component.css']
 })
 export class PlaylistComponent {
-  url:string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/playlist/add"
-  url2:string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/playlist/watch"
-  url3 :string = "https://3245-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io/playlist/delete"
+  url:string = "https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/playlist/add"
+  url2:string = "https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/playlist/watch"
+  url3 :string = "https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/playlist/delete"
   scelta: any;
   playlists!:any;
   username = sessionStorage.getItem('username');
   id_u = sessionStorage.getItem('id')
   constructor(private activatedRoute: ActivatedRoute,public http: HttpClient,private router: Router) {
+    if (sessionStorage.getItem('id') == null){
+      this.router.navigate(['/login'])
+    }
     this.get(this.url2 + "?id=" + this.id_u)
   }
 

@@ -16,7 +16,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-ath3c3g4ev5.ws-eu83.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -505,14 +505,18 @@ def creazione_playlist():
 
 @app.route("/playlist/watch", methods=["GET"])
 def visualizza_playlist():
-  id = request.args.get("id")
-  print(id)
-  q = "select * from spotify.playlists where user_id = %(id)s"
-  cursor = conn.cursor(as_dict=True)
-  p = {"id": f"{id}"}
-  cursor.execute(q, p)
-  data = cursor.fetchall()
-  print(data)
+  try:
+    id = request.args.get("id")
+  except:
+    id = None
+
+  if id != None and id != '': 
+    q = "select * from spotify.playlists where user_id = %(id)s"
+    cursor = conn.cursor(as_dict=True)
+    p = {"id": f"{id}"}
+    cursor.execute(q, p)
+    data = cursor.fetchall()
+    print(data)
   return jsonify(data)
 
 @app.route("/playlist/delete", methods=["POST"])
@@ -520,7 +524,7 @@ def cancella_playlist():
   form_data = request.get_json()
   id_p = form_data["id_p"]
   print(id_p)
-  q = 'delete from spotify.playlists where id = %(id_p)s'
+  q = 'delete from spotify.r_track_playlist where playlist_id = %(id_p)s; delete from spotify.playlists where id = %(id_p)s'
   cursor = conn.cursor(as_dict=True)
   p = {"id_p": f"{id_p}"}
 

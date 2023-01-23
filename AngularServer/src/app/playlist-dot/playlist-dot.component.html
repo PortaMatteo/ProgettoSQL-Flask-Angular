@@ -23,20 +23,26 @@
     </div>
   </div>
   <div class="col-10">
+    <h3><p>Tracce</p></h3>
     <table *ngIf="plylst.length >= 1" class="table">
       <tbody>
         <tr>
           <th>#</th>
           <th>Nome</th>
+          
         </tr>
       
         <tr *ngFor="let p of plylst; let i = index">
-          <td>
+          <td class="col-1">
             {{i}}
           </td>
-          <td>
+          <td class="col-6">
               <a href="/track/{{p.id}}"><b>{{p.name}}</b></a><br>
           </td>
+          <td class="col-2">
+            <audio id="audio" src="{{p.preview_url}}" style="height:30px;" controls></audio>
+          </td>
+
           <td class="col-md-1">
             <form #delete = "ngForm" (ngSubmit) = "deletetrack(p.id)">
               <input type="submit" value="❌">

@@ -1,6 +1,6 @@
 
 <div class="row" >
-  <div class="col-md-2" >
+  <div class="col-2" >
     <div class="sidenav">
       <a href="/home"><h2>MyTune</h2></a>
       <a href="/home">Home</a>
@@ -23,34 +23,48 @@
       </ng-template>
     </div>
   </div>
-  <div class="col-md-10">
+  <div class="col-10">
     <b>ARTISTA</b>
     <h1 class="display-1"><b>{{artist_n}}</b></h1>
 
     <a href="/genre/{{artist_g}}"><h3><b>{{artist_g}}</b></h3></a>
-    
-    
-    <table *ngIf="tracks.length >= 1" class="table">
-        <thead>
-          <th>ALBUM</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let s of artist_a">
-                <td>
-                    <a href="/album/{{s.id}}"><b>{{s.name}}</b></a><br>
-                </td>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <table *ngIf="tracks.length >= 1" class="table">
+          <thead>
+            <th>ALBUM</th>
+          </thead>
+          <tbody>
+              <tr *ngFor="let s of artist_a">
+                  <td>
+                      <a href="/album/{{s.id}}"><b>{{s.name}}</b></a><br>
+                  </td>
+              </tr>
+          </tbody>   
+        </table>
+      </div>
+      <div class="col-12 col-lg-6">
+        <table *ngIf="tracks.length >= 1" class="table">
+          <thead>
+            <th>TRACCE</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of tracks">
+              <td class="col-md3">
+                  <a href="/track/{{s.id}}"><b>{{s.name}}</b></a><br>
+              </td>
+              <td class="col-md-2">
+                <audio id="audio" src="{{s.preview_url}}" style="height:30px;" controls></audio>
+              </td>
             </tr>
-            
-        <th>TRACCE</th>
-          <tr *ngFor="let s of tracks">
-            <td>
-                <a href="/track/{{s.id}}"><b>{{s.name}}</b></a><br>
-            </td>
-            <td class="col-md-2">
-              <audio id="audio" src="{{s.preview_url}}" controls></audio>
-            </td>
-          </tr>
-        </tbody>
-    </table>
-  </div>
+          </tbody>
+              
+        </table>
+      </div>
+    </div>
+    </div>
+    
+  
+  
 </div>
+
