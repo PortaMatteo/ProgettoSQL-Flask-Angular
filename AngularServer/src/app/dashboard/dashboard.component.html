@@ -32,6 +32,7 @@
                 <div class="form-outline mb-4">
                     <input #box2 type="text" class="form-control" id="duration"  placeholder="Durata traccia in secondi" name="duration" required ngModel>
                 </div>
+                <p>Inserisci l'artista:</p>
                 <div class="form-outline mb-4">
                     <input id="box" #box3 (keyup)="onKeySearch($event)" class="form-control mt-3">
                     <select class='select-option'
@@ -44,6 +45,7 @@
                         </option>
                     </select>
                 </div>
+                <p>Inserisci l'album:</p>
                 <div class="form-outline mb-4">
                     <input id="box" #box4 (keyup)="onKeySearch2($event)" class="form-control mt-3">
                     <select class='select-option'
@@ -79,6 +81,18 @@
                             
                 <div class="form-outline mb-4">
                     <input #box type="text" class="form-control" id="album_name"  placeholder="Nome album" name="album_name" required ngModel>
+                </div>
+                <div class="form-outline mb-4">
+                    <input id="box" #box4 (keyup)="onKeySearch3($event)" class="form-control mt-3">
+                    <select class='select-option'
+                        #mySelect3
+                        (change)='onOptionsSelected3(mySelect3.value)'>
+                        <option class="option" value="" selected></option>
+                        <option class='option'
+                            *ngFor='let option3 of dropdown3' 
+                            [value]="option3.id">{{option3.name}}
+                        </option>
+                    </select>
                 </div>
         
                 <input type = "submit" value = "submit"  class="btn btn-primary btn-block mb-4" value="Aggiungi">

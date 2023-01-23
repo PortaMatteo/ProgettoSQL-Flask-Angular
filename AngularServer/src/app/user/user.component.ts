@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent {
-  url:string = "https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/modify"
-  url2:string = "https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/delete"
+  url:string = "https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/modify"
+  url2:string = "https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/delete"
   status = sessionStorage.getItem('status');
   id = sessionStorage.getItem('id');
   username = sessionStorage.getItem('username');

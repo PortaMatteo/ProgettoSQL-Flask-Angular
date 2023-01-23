@@ -20,12 +20,12 @@ export class PlaylistDotComponent {
     this.activatedRoute.params.subscribe(paramsId => {
         this.id = paramsId['p'];
     });
-    this.http.get("https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/playlistview" + "?id=" + this.id).subscribe(res=>{
+    this.http.get("https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/playlistview" + "?id=" + this.id).subscribe(res=>{
       this.plylst = res
     })
   }
   deletetrack(value){
-    this.http.get("https://3245-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io/deletetrack" + "?id=" + value).subscribe(res=>{
+    this.http.get("https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/deletetrack" + "?id=" + value).subscribe(res=>{
     })
     window.location.reload()
   }

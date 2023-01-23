@@ -16,7 +16,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-m7wf52vfpwe.ws-eu83.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -231,7 +231,7 @@ def dati_registrazione():
   email = form_data["email"]
   password = form_data["password"]
   status = 'user'
-  print(username)
+  print(username, email, password)
   Cq = "select * from spotify.users where username = %(username)s or email = %(email)s"
   Ccursor = conn.cursor(as_dict=True)
   Cp = {"username": f"{username}","email": f"{email}"}
@@ -381,7 +381,10 @@ def addArtist():
 	  return ''.join(random.choice(chars) for _ in range(N))
   id = randStr(N=20)
   form_data = request.get_json()
-  artist_name = form_data["artist_name"]
+  try:
+    artist_name = form_data["artist_name"]
+  except:
+    artist_name = None
   if artist_name != '' and artist_name != None:
     q = 'insert into spotify.artists (name,id) values (%(artist_name)s,%(id)s)'
     cursor = conn.cursor(as_dict=True)
@@ -403,11 +406,24 @@ def addAlbum():
 	  return ''.join(random.choice(chars) for _ in range(N))
   id = randStr(N=20)
   form_data = request.get_json()
-  album_name = form_data["album_name"]
-  if album_name != '' and album_name != None:
+  try:
+    artista = form_data["artista"]
+    album_name = form_data["album_name"]
+  except:
+    artista = None
+    album_name = None
+  if album_name != '' and album_name != None and artista != '' and artista != None:
     q = 'insert into spotify.albums (name,id) values (%(album_name)s,%(id)s)'
     cursor = conn.cursor(as_dict=True)
     p = {"album_name": f"{album_name}","id": f"{id}"}
+
+    cursor.execute(q, p)
+    conn.commit()
+
+
+    q = 'insert into spotify.r_albums_artists (album_id,artist_id) values (%(id)s,%(artista)s)'
+    cursor = conn.cursor(as_dict=True)
+    p = {"id": f"{id}","artista": f"{artista}"}
 
     cursor.execute(q, p)
     conn.commit()
