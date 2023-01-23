@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  url : string = "https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/register/data";
+  url : string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/register/data";
   email:string = '';
   passw:string = '';
   username:string = '';

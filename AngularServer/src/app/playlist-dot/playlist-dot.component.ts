@@ -11,6 +11,7 @@ export class PlaylistDotComponent {
   id!:any;
   plylst!:any;
   username = sessionStorage.getItem('username');
+  url2: string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/deletetrack"
   constructor(private activatedRoute: ActivatedRoute,public http: HttpClient,private router: Router) {
     if (sessionStorage.getItem('id') == null){
       this.router.navigate(['/home'])
@@ -20,13 +21,13 @@ export class PlaylistDotComponent {
     this.activatedRoute.params.subscribe(paramsId => {
         this.id = paramsId['p'];
     });
-    this.http.get("https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/playlistview" + "?id=" + this.id).subscribe(res=>{
+    this.http.get("https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/playlistview" + "?id=" + this.id).subscribe(res=>{
       this.plylst = res
     })
   }
-  deletetrack(value){
-    this.http.get("https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/deletetrack" + "?id=" + value).subscribe(res=>{
-    })
+
+  deletetrack(data){
+    this.http.post(this.url2,{id_t:data,id_p:this.id}).subscribe(res => {});
     window.location.reload()
   }
 }

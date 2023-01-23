@@ -16,7 +16,7 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-angular_url = 'https://4200-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io'
+angular_url = 'https://4200-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io'
 
 conn = pymssql.connect(server='213.140.22.237\SQLEXPRESS', user='porta.matteo', password='xxx123##', database='porta.matteo')
 
@@ -230,24 +230,27 @@ def dati_registrazione():
   username = form_data["username"]
   email = form_data["email"]
   password = form_data["password"]
+  print(form_data)
   status = 'user'
-  print(username, email, password)
-  Cq = "select * from spotify.users where username = %(username)s or email = %(email)s"
+  if username == '' or username == None or email == '' or email == None or password == '' or password == None:
+    print('noooooooooooooooo')
+    return json.dumps(False)
+  Cq = "select * from spotify.users where email = %(email)s"
   Ccursor = conn.cursor(as_dict=True)
-  Cp = {"username": f"{username}","email": f"{email}"}
+  Cp = {"email": f"{email}"}
   Ccursor.execute(Cq, Cp)
   Cdata = Ccursor.fetchall()
   if Cdata != []:
+    print(Cdata)
     return json.dumps(False)
-  else:
-    q = 'insert into spotify.users (username, email, password, status) values (%(username)s,%(email)s,%(password)s,%(status)s)'
-    cursor = conn.cursor(as_dict=True)
-    p = {"username": f"{username}","email": f"{email}","password": f"{password}","status":f"{status}"}
-
-    cursor.execute(q, p)
-    conn.commit()
-    #print(data)
-    return json.dumps(True)
+  q = 'insert into spotify.users (username, email, password, status) values (%(username)s,%(email)s,%(password)s,%(status)s)'
+  cursor = conn.cursor(as_dict=True)
+  p = {"username": f"{username}","email": f"{email}","password": f"{password}","status":f"{status}"}
+  
+  cursor.execute(q,p)
+  
+  #print(data)
+  return json.dumps(True)
 
 @app.route("/login/data", methods=["POST"])
 def dati_login():
@@ -255,10 +258,12 @@ def dati_login():
   print(form_data)
   email = form_data['email']
   password = form_data['password']
+  if email == '' or email == None or password == '' or password == None:
+    return json.dumps(False)
   q = "select * from spotify.users where email = %(email)s and password = %(password)s "
   cursor = conn.cursor(as_dict=True)
   p = {"email": f"{email}","password": f"{password}"}
-
+  
   cursor.execute(q, p)
   data = cursor.fetchall()
   
@@ -270,26 +275,23 @@ def dati_login():
 @app.route("/modify", methods=["POST"])
 def modifica_dati():
   form_data = request.get_json()
-  id = form_data['id']
-  username = form_data['username']
-  if username == "":
+  try:
+    id = form_data['id']
+    username = form_data['username']
+    print(id,username)
+  except:
+    id = None
+    username = None
+  if id == '' or id == None or username == '' or username == None:
     return json.dumps(False)
-  else:  
-    Cq = "select * from spotify.users where username = %(username)s"
-    Ccursor = conn.cursor(as_dict=True)
-    Cp = {"id": f"{id}","username": f"{username}"}
-    Ccursor.execute(Cq, Cp)
-    Cdata = Ccursor.fetchall()
-    if Cdata != []:
-      return json.dumps(False)
-    else:
-      q = 'update spotify.users set username = %(username)s where id = %(id)s'
-      cursor = conn.cursor(as_dict=True)
-      p = {"id": f"{id}","username": f"{username}"}
 
-      cursor.execute(q, p)
-      conn.commit()
-      return json.dumps(True)
+  q = 'update spotify.users set username = %(username)s where id = %(id)s'
+  cursor = conn.cursor(as_dict=True)
+  p = {"username": f"{username}","id": f"{id}"}
+
+  cursor.execute(q, p)
+
+  return json.dumps(True)
 
 @app.route("/listartist", methods=["GET"])
 def listartist():
@@ -368,12 +370,9 @@ def addTrack():
 
       cursor.execute(q, p)
       conn.commit()
-
-
-
-
   print(id)
   return json.dumps(True)
+
 @app.route("/addArtist", methods=["POST"])
 def addArtist():
   chars = string.ascii_uppercase + string.digits
@@ -488,12 +487,11 @@ def cancellazione_account():
   form_data = request.get_json()
   id = form_data["id"]
   print(id)
-  q = 'delete from spotify.users where id = %(id)s'
+  q = 'delete from spotify.r_track_playlist where playlist_id in (select id from spotify.playlists where user_id = %(id)s);delete from spotify.playlists where user_id = %(id)s; delete from spotify.favs where user_id = %(id)s ;delete from spotify.users where id = %(id)s'
   cursor = conn.cursor(as_dict=True)
   p = {"id": f"{id}"}
 
-  cursor.execute(q, p)
-  conn.commit()
+  cursor.execute(q,p)
   return json.dumps(True)
   
 @app.route("/playlist/add", methods=["POST"])
@@ -516,7 +514,7 @@ def creazione_playlist():
     p = {"name": f"{name}","id": f"{id}","description":f"{description}"}
 
     cursor.execute(q, p)
-    conn.commit()
+ 
     return json.dumps(True)
 
 @app.route("/playlist/watch", methods=["GET"])
@@ -530,7 +528,7 @@ def visualizza_playlist():
     q = "select * from spotify.playlists where user_id = %(id)s"
     cursor = conn.cursor(as_dict=True)
     p = {"id": f"{id}"}
-    cursor.execute(q, p)
+    cursor.execute(q,p)
     data = cursor.fetchall()
     print(data)
   return jsonify(data)
@@ -572,12 +570,15 @@ def playlistview():
 
   return jsonify(data)
 
-@app.route("/deletetrack", methods=["get"])
+@app.route("/deletetrack", methods=["POST"])
 def deletetrack():
-  id = request.args.get("id")
-  q = 'delete from spotify.r_track_playlist where track_id = %(id )s'
+  form_data = request.get_json()
+  id_t = form_data["id_t"]
+  id_p = form_data["id_p"]
+  print(id_t,id_p)
+  q = 'delete from spotify.r_track_playlist where track_id = %(id_t)s and playlist_id = %(id_p)s'
   cursor = conn.cursor(as_dict=True)
-  p = {"id ": f"{id }"}
+  p = {"id_t": f"{id_t}", "id_p":f"{id_p}"}
 
   cursor.execute(q, p)
   conn.commit()

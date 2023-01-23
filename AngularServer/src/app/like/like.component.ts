@@ -8,10 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./like.component.css']
 })
 export class LikeComponent {
-  url: string = "https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/liked"
+  url: string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/liked"
   id_u = sessionStorage.getItem('id')
   tracks!:any;
-  url3: string = "https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/dislike"
+  url3: string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/dislike"
   username = sessionStorage.getItem('username');
   constructor(public http: HttpClient,private router: Router){
 

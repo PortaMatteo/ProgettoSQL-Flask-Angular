@@ -8,9 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./playlist.component.css']
 })
 export class PlaylistComponent {
-  url:string = "https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/playlist/add"
-  url2:string = "https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/playlist/watch"
-  url3 :string = "https://3245-portamatteo-progettosql-kotaoj5o1ix.ws-eu83.gitpod.io/playlist/delete"
+  url:string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/playlist/add"
+  url2:string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/playlist/watch"
+  url3 :string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/playlist/delete"
   scelta: any;
   playlists!:any;
   username = sessionStorage.getItem('username');
@@ -31,7 +31,7 @@ export class PlaylistComponent {
   onClickSubmit(data) {
     this.http.post(this.url,{id_u:sessionStorage.getItem('id'),name:data.name,description:data.description}).subscribe(res => {
       if(res){
-        this.router.navigate(['/playlist/watch'])
+        this.router.navigate(['/playlist/watch']) 
       }
       else{
         alert("È già esiste una playlist con lo stesso nome")
