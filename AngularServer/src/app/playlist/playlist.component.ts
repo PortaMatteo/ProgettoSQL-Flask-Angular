@@ -8,9 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./playlist.component.css']
 })
 export class PlaylistComponent {
-  url:string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/playlist/add"
-  url2:string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/playlist/watch"
-  url3 :string = "https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/playlist/delete"
+  url:string = "https://3245-portamatteo-progettosql-nyjfa3kgy7b.ws-eu83.gitpod.io/playlist/add"
+  url2:string = "https://3245-portamatteo-progettosql-nyjfa3kgy7b.ws-eu83.gitpod.io/playlist/watch"
+  url3 :string = "https://3245-portamatteo-progettosql-nyjfa3kgy7b.ws-eu83.gitpod.io/playlist/delete"
   scelta: any;
   playlists!:any;
   username = sessionStorage.getItem('username');

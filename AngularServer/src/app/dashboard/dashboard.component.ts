@@ -27,7 +27,7 @@ export class DashboardComponent {
     });
   }
   addTrack(data){
-    this.http.post('https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/addTrack',{track_name:data.track_name,duration:data.duration,artista:this.selectedv,album:this.selectedv2}).subscribe(res => {});
+    this.http.post('https://3245-portamatteo-progettosql-nyjfa3kgy7b.ws-eu83.gitpod.io/addTrack',{track_name:data.track_name,duration:data.duration,artista:this.selectedv,album:this.selectedv2}).subscribe(res => {});
   }
   
   onKeySearch(event: any) {
@@ -42,7 +42,7 @@ export class DashboardComponent {
 
   private executeListing(value: string) {
     console.log(value)
-    this.http.get('https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/listartist' + "?search=" + value).subscribe(res => {
+    this.http.get('https://3245-portamatteo-progettosql-nyjfa3kgy7b.ws-eu83.gitpod.io/listartist' + "?search=" + value).subscribe(res => {
       this.dropdown = res
       console.log(this.dropdown)
     })
@@ -53,7 +53,7 @@ export class DashboardComponent {
   }
 
   addArtist(data){
-    this.http.post('https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/addArtist',{artist_name:data.artist_name}).subscribe(res => {});
+    this.http.post('https://3245-portamatteo-progettosql-nyjfa3kgy7b.ws-eu83.gitpod.io/addArtist',{artist_name:data.artist_name}).subscribe(res => {});
   }
 
   onKeySearch2(event: any) {
@@ -67,7 +67,7 @@ export class DashboardComponent {
   }
   private executeListing2(value: string) {
     console.log(value)
-    this.http.get('https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/listalbum' + "?search=" + value).subscribe(res => {
+    this.http.get('https://3245-portamatteo-progettosql-nyjfa3kgy7b.ws-eu83.gitpod.io/listalbum' + "?search=" + value).subscribe(res => {
       this.dropdown2 = res
       console.log(this.dropdown2)
     })
@@ -77,7 +77,7 @@ export class DashboardComponent {
     console.log(this.selectedv2)
   }
   addAlbum(data){
-    this.http.post('https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/addAlbum',{album_name:data.album_name,artista:this.selectedv3}).subscribe(res => {});
+    this.http.post('https://3245-portamatteo-progettosql-nyjfa3kgy7b.ws-eu83.gitpod.io/addAlbum',{album_name:data.album_name,artista:this.selectedv3}).subscribe(res => {});
   }
   onKeySearch3(event: any) {
     clearTimeout(this.timeout);
@@ -90,7 +90,7 @@ export class DashboardComponent {
   }
   private executeListing3(value: string) {
     console.log(value)
-    this.http.get('https://3245-portamatteo-progettosql-ytr72zaa70i.ws-eu83.gitpod.io/listartist' + "?search=" + value).subscribe(res => {
+    this.http.get('https://3245-portamatteo-progettosql-nyjfa3kgy7b.ws-eu83.gitpod.io/listartist' + "?search=" + value).subscribe(res => {
       this.dropdown3 = res
       console.log(this.dropdown3)
     })
